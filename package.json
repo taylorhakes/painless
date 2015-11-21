@@ -4,16 +4,11 @@
   "description": "Simple test framework for node and the browser",
   "main": "index.js",
   "dependencies": {
-    "deep-equal": "~1.0.0",
-    "defined": "~1.0.0",
-    "function-bind": "~1.0.2",
     "function-done": "^1.0.1",
     "glob": "~5.0.3",
-    "has": "~1.0.1",
     "inherits": "~2.0.1",
-    "object-inspect": "~1.0.0",
     "resumer": "~0.0.0",
-    "string.prototype.trim": "^1.1.1",
+    "setasap": "^1.0.1",
     "through": "~2.3.4"
   },
   "devDependencies": {
