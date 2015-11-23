@@ -1,25 +1,27 @@
 {
   "name": "cone",
   "version": "1.0.0",
-  "description": "Simple test framework for node and the browser",
+  "description": "Super simple test framework for node and the browser",
   "main": "index.js",
   "dependencies": {
     "function-done": "^1.0.1",
     "glob": "~5.0.3",
     "inherits": "~2.0.1",
+    "polyfill-function-prototype-bind": "0.0.1",
     "resumer": "~0.0.0",
     "setasap": "^1.0.1",
     "through": "~2.3.4"
   },
   "devDependencies": {
     "concat-stream": "~1.4.1",
+    "eslint": "^1.10.1",
+    "eslint-config-airbnb": "^1.0.0",
     "falafel": "~1.0.1",
     "js-yaml": "^3.3.1",
-    "tap": "~0.7.1",
-    "tap-parser": "^1.1.6"
+    "tap": "^2.3.1"
   },
   "scripts": {
-    "test": "cone test/*.js"
+    "test": "eslint **/*.js && tap test/**/*.js"
   },
   "repository": {
     "type": "git",

@@ -8,52 +8,32 @@ var canEmitExit = typeof process !== 'undefined' && process
 var canExit = typeof process !== 'undefined' && process
   && typeof process.exit === 'function';
 
-function createExitHarness(conf) {
-  if (!conf) conf = {};
-  var harness = createHarness({
-    autoclose: conf.autoclose || false
-  });
+var loadTest;
+var processOn;
+var processExit;
 
-  var stream = harness.createStream({objectMode: conf.objectMode});
-  var es = stream.pipe(conf.stream || createDefaultStream());
-  if (canEmitExit) {
-    es.on('error', function () {
-      harness._exitCode = 1
-    });
-  }
+require('polyfill-function-prototype-bind');
 
-  var ended = false;
-  stream.on('end', function () {
-    ended = true
-  });
-
-  if (conf.exit === false) return harness;
-  if (!canEmitExit || !canExit) return harness;
-
-  process.on('exit', function (code) {
-
-    // let the process exit cleanly.
-    if (code !== 0) {
-      return
-    }
-
-    harness.close();
-    process.exit(code || harness._exitCode);
-  });
-
-  return harness;
-}
+// Save globals so tests don't affect them
+processOn = canEmitExit ? process.on.bind(process) : null;
+processExit = canEmitExit ? process.exit.bind(process) : null;
 
 function createHarness(conf_) {
-  if (!conf_) conf_ = {};
-  var results = createResult();
+  var results;
+  var only = false;
+  if (!conf_) {
+    conf_ = {};
+  }
+
+  results = createResult();
+  console.log(conf_);
   if (conf_.autoclose !== false) {
-    results.once('done', function () {
-      results.close()
+    results.once('done', function onDone() {
+      results.close();
     });
   }
 
-  var test = function (name, conf, cb) {
+  function test(name, conf, cb) {
     var t = new Test(name, conf, cb);
     test._tests.push(t);
 
@@ -61,22 +41,22 @@ function createHarness(conf_) {
       st.on('test', function sub(st_) {
         inspectCode(st_);
       });
-      st.on('result', function (r) {
-        if (!r.ok && typeof r !== 'string') test._exitCode = 1
+      st.on('result', function onResult(r) {
+        if (!r.ok && typeof r !== 'string') test._exitCode = 1;
       });
     })(t);
 
     results.push(t);
     return t;
-  };
+  }
+
   test._results = results;
   test._tests = [];
-  test.createStream = function (opts) {
+  test.createStream = function createStream(opts) {
     return results.createStream(opts);
   };
 
-  var only = false;
-  test.only = function (name) {
+  test.only = function testOnly(name) {
     if (only) throw new Error('there can only be one only test');
     results.only(name);
     only = true;
@@ -84,17 +64,53 @@ function createHarness(conf_) {
   };
   test._exitCode = 0;
 
-  test.close = function () {
-    results.close()
+  test.close = function close() {
+    results.close();
   };
 
   return test;
 }
 
-
-var loadTest = (function () {
+function createExitHarness(conf) {
   var harness;
-  var lazyLoad;
+  var stream;
+  var es;
+
+  if (!conf) conf = {};
+  harness = createHarness({
+    autoclose: conf.autoclose || false
+  });
+
+  stream = harness.createStream({objectMode: conf.objectMode});
+  es = stream.pipe(conf.stream || createDefaultStream());
+  if (canEmitExit) {
+    es.on('error', function onError() {
+      harness._exitCode = 1;
+    });
+  }
+
+  if (conf.exit === false) {
+    return harness;
+  }
+  if (!canEmitExit || !canExit) {
+    return harness;
+  }
+
+  processOn('exit', function onExit(code) {
+    // let the process exit cleanly.
+    if (code !== 0) {
+      return;
+    }
+
+    harness.close();
+    processExit(code || harness._exitCode);
+  });
+
+  return harness;
+}
+
+loadTest = (function loadTestFn() {
+  var harness;
 
   function getHarness(opts) {
     if (!opts) opts = {};
@@ -103,18 +119,22 @@ var loadTest = (function () {
     return harness;
   }
 
-  lazyLoad = function () {
+  function lazyLoad() {
     return getHarness().apply(this, arguments);
-  };
+  }
 
-  lazyLoad.only = function () {
+  lazyLoad.only = function only() {
     return getHarness().only.apply(this, arguments);
   };
 
-  lazyLoad.createStream = function (opts) {
-    if (!opts) opts = {};
+  lazyLoad.createStream = function createStream(opts) {
+    var output;
+
+    if (!opts) {
+      opts = {};
+    }
     if (!harness) {
-      var output = through();
+      output = through();
       getHarness({stream: output, objectMode: opts.objectMode});
       return output;
     }
@@ -126,4 +146,4 @@ var loadTest = (function () {
   return lazyLoad;
 })();
 
-exports = module.exports = loadTest;
+module.exports = loadTest;
