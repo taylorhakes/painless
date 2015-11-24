@@ -3,7 +3,7 @@ var assert = require('chai').assert;
 var painless = require('../');
 var test = tap.test;
 
-test('one success', function(t) {
+test('one fail', function(t) {
   var harness = painless.createHarness({ exit: false });
   var stream = harness.createStream();
   var body = [];
@@ -11,17 +11,12 @@ test('one success', function(t) {
     body.push(result);
   });
   stream.on('end', function() {
-    assert.deepEqual([
-      'TAP version 13\n',
-      'ok 1 success\n',
-      '\n1..1\n',
-      '# tests 1\n',
-      '# pass  1\n',
-      '\n# ok\n'
-    ], body);
+    t.equal(body.length, 6);
+    t.ok(body[1].indexOf('not ok') === 0);
+    t.equal(body[5], '# fail  1\n');
     t.end();
   });
   harness('success', function() {
-    assert(true);
+    assert(false);
   });
 });
