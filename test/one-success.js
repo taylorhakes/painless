@@ -13,11 +13,15 @@ test('no tests', function(t) {
   stream.on('end', function() {
     assert.deepEqual([
       'TAP version 13\n',
-      '\n1..0\n',
-      '# tests 0\n',
-      '# pass  0\n',
+      'ok 1 success\n',
+      '\n1..1\n',
+      '# tests 1\n',
+      '# pass  1\n',
       '\n# ok\n'
     ], body);
     t.end();
+  });
+  harness('success', function() {
+    assert(true);
   });
 });
