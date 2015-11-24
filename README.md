@@ -12,6 +12,26 @@ Simple test structure that just works. All tests are really fast because of the 
 - Easy to debug (Tests are just basic node processes. No subprocesses)
 - Coverage support with Istanbul
 
+## Install
+```
+npm install painless --save-dev
+```
+Execute a single test
+```
+node test/test.js
+``
+Or run multiple tests
+```
+./node_modules/.bin/painless test/**/*.js
+```
+Add tests to package.json
+```
+{
+ "scripts": {
+    "test": "painless test/**/*.js"
+  }
+}
+```
 ## Example Test
 ```js
 var painless = require('painless');
