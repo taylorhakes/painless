@@ -19,7 +19,7 @@ npm install painless --save-dev
 Execute a single test
 ```
 node test/test.js
-``
+```
 Or run multiple tests
 ```
 ./node_modules/.bin/painless test/**/*.js
