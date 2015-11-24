@@ -26,7 +26,6 @@ function createHarness(conf_) {
   }
 
   results = createResult();
-  console.log(conf_);
   if (conf_.autoclose !== false) {
     results.once('done', function onDone() {
       results.close();
@@ -147,3 +146,4 @@ loadTest = (function loadTestFn() {
 })();
 
 module.exports = loadTest;
+module.exports.createHarness = createHarness;

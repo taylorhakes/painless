@@ -1,4 +1,5 @@
 var tap = require('tap')
+var assert = require('chai').assert;
 var Test = require('../lib/test');
 var test = tap.test;
 var noop = function() {};
@@ -35,12 +36,7 @@ test('options in other order', function(t) {
 test('skip', function(t) {
   var tes = Test.skip('hello', noop);
   tes.on('end', function(val) {
-    t.deepEqual(val, {
-      id:   1,
-      ok:   true,
-      skip: true,
-      name: 'hello'
-    });
+    t.is(val.skip, true);
     t.end();
   });
   tes.run();
@@ -49,12 +45,7 @@ test('skip', function(t) {
 test('skip in options', function(t) {
   var tes = Test('hello', noop, {skip: true});
   tes.on('end', function(val) {
-    t.deepEqual(val, {
-      id:   1,
-      ok:   true,
-      skip: true,
-      name: 'hello'
-    });
+    t.is(val.skip, true);
     t.end();
   });
   tes.run();
@@ -64,6 +55,39 @@ test('timeout', function(t) {
   var tes = Test('hello', function(done) {}, {timeout: 10});
   tes.on('end', function(val) {
     t.is(val.error.message, 'test timed out after 10ms');
+    t.end();
+  });
+  tes.run();
+});
+
+test('no callback skipped', function(t) {
+  var tes = Test('hello');
+  tes.on('end', function(val) {
+    t.is(val.skip, true);
+    t.end();
+  });
+  tes.run();
+});
+
+test('passing test', function(t) {
+  var tes = Test('hello', function() {
+    assert(true);
+  });
+  tes.on('end', function(val) {
+    t.is(val.ok, true);
+    t.end();
+  });
+  tes.run();
+});
+
+test('failing test', function(t) {
+  var tes = Test('hello', function() {
+    assert.equal(false, true);
+  });
+  tes.on('end', function(val) {
+    t.is(val.ok, false);
+    t.is(val.actual, false);
+    t.is(val.expected, true);
     t.end();
   });
   tes.run();

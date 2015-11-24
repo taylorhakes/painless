@@ -1,6 +1,6 @@
 {
-  "name": "cone",
-  "version": "1.0.0",
+  "name": "painless",
+  "version": "0.1.0",
   "description": "Super simple test framework for node and the browser",
   "main": "index.js",
   "dependencies": {
@@ -13,6 +13,7 @@
     "through": "~2.3.4"
   },
   "devDependencies": {
+    "chai": "^3.4.1",
     "concat-stream": "~1.4.1",
     "eslint": "^1.10.1",
     "eslint-config-airbnb": "^1.0.0",
@@ -25,9 +26,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/taylorhakes/cone.git"
+    "url": "git://github.com/taylorhakes/painless.git"
   },
-  "homepage": "https://github.com/taylorhakes/cone",
+  "homepage": "https://github.com/taylorhakes/painless",
   "keywords": [
     "tap",
     "test",
