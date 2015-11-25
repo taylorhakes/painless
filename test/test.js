@@ -92,3 +92,16 @@ test('failing test', function(t) {
   });
   tes.run();
 });
+
+test('failing test callback', function(t) {
+  var tes = Test('hello', function(done) {
+    setTimeout(function() {
+      done(new Error());
+    }, 10);
+  });
+  tes.on('end', function(val) {
+    t.is(val.ok, false);
+    t.end();
+  });
+  tes.run();
+});
