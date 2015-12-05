@@ -4,6 +4,7 @@ var Test = require('../lib/test');
 var Promise  = require('promise-polyfill');
 var Observable = require("zen-observable");
 var through = require('through');
+var cp = require('child_process');
 var test = tap.test;
 var noop = function() {};
 
@@ -268,6 +269,28 @@ test('passing stream', function(t) {
 
 
     return stream;
+  });
+  tes.on('end', function(val) {
+    t.is(val.ok, true);
+    t.end();
+  });
+  tes.run();
+});
+
+test('failing process', function(t) {
+  var tes = Test('test failing observable', function() {
+    return cp.exec('foo-bar-baz hello world');
+  });
+  tes.on('end', function(val) {
+    t.is(val.ok, false);
+    t.end();
+  });
+  tes.run();
+});
+
+test('passing process', function(t) {
+  var tes = Test('test failing observable', function() {
+    return cp.exec('echo hello world');
   });
   tes.on('end', function(val) {
     t.is(val.ok, true);
