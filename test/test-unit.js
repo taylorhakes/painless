@@ -1,6 +1,6 @@
 var tap = require('tap')
 var assert = require('chai').assert;
-var Test = require('../lib/test');
+var Test = require('../lib/TestWrapper');
 var Promise  = require('promise-polyfill');
 var Observable = require("zen-observable");
 var through = require('through');

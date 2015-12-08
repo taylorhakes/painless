@@ -1,5 +1,5 @@
 var createDefaultStream = require('./lib/default_stream');
-var Test = require('./lib/test');
+var Test = require('./lib/TestWrapper');
 var createResult = require('./lib/results');
 var through = require('through');
 
