@@ -73,6 +73,28 @@ test('no callback skipped', function(t) {
   tes.run();
 });
 
+test('null options', null, function(t) {
+  var tes = Test('hello', function() {
+    assert(true);
+  });
+  tes.on('end', function(val) {
+    t.is(val.ok, true);
+    t.end();
+  });
+  tes.run();
+});
+
+test(function useFunctionName(t) {
+  var tes = Test('hello', function() {
+    assert(true);
+  });
+  tes.on('end', function(val) {
+    t.is(val.ok, true);
+    t.end();
+  });
+  tes.run();
+});
+
 test('passing test', function(t) {
   var tes = Test('hello', function() {
     assert(true);
