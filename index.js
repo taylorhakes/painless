@@ -34,19 +34,20 @@ function createHarness(conf_) {
 
   function test(name, conf, cb) {
     var t = new Test(name, conf, cb);
+    addTestToResults(t);
+    return t;
+  }
+
+  function addTestToResults(t) {
     test._tests.push(t);
 
-    (function inspectCode(st) {
-      st.on('test', function sub(st_) {
-        inspectCode(st_);
-      });
-      st.on('result', function onResult(r) {
-        if (!r.ok && typeof r !== 'string') test._exitCode = 1;
-      });
-    })(t);
+    t.on('end', function onResult(r) {
+      if (!r.ok && typeof r !== 'string') {
+        test._exitCode = 1;
+      }
+    });
 
     results.push(t);
-    return t;
   }
 
   test._results = results;
@@ -55,12 +56,19 @@ function createHarness(conf_) {
     return results.createStream(opts);
   };
 
-  test.only = function testOnly(name) {
+  test.only = function testOnly(name, conf, cb) {
     if (only) throw new Error('there can only be one only test');
     results.only(name);
     only = true;
     return test.apply(null, arguments);
   };
+
+  test.skip = function skip() {
+    var t = Test.skip.apply(null, arguments);
+    addTestToResults(t);
+    return t;
+  };
+
   test._exitCode = 0;
 
   test.close = function close() {

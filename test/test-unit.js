@@ -73,8 +73,8 @@ test('no callback skipped', function(t) {
   tes.run();
 });
 
-test('null options', null, function(t) {
-  var tes = Test('hello', function() {
+test('null options', function(t) {
+  var tes = Test('hello', null, function() {
     assert(true);
   });
   tes.on('end', function(val) {
@@ -84,14 +84,37 @@ test('null options', null, function(t) {
   tes.run();
 });
 
-test(function useFunctionName(t) {
-  var tes = Test('hello', function() {
+test('use function name', function (t) {
+  var tes = Test(function useFunctionName() {
     assert(true);
   });
   tes.on('end', function(val) {
     t.is(val.ok, true);
     t.end();
   });
+  tes.run();
+});
+
+test('anonymous function name', function (t) {
+  var tes = Test(function () {
+    assert(true);
+  });
+  tes.on('end', function(val) {
+    t.is(val.ok, true);
+    t.end();
+  });
+  tes.run();
+});
+
+test('run test twice', function (t) {
+  var tes = Test('run test twice', function () {
+    assert(true);
+  });
+  tes.on('end', function(val) {
+    t.is(val.ok, true);
+    t.end();
+  });
+  tes.run();
   tes.run();
 });
 
