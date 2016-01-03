@@ -1,157 +1,40 @@
-var createDefaultStream = require('./lib/default_stream');
-var Test = require('./lib/TestWrapper');
-var createResult = require('./lib/results');
-var through = require('through');
+var FnObj = require('./lib/fn-obj');
+var executeGroup = require('./lib/execute-group');
+var setAsap = require('setAsap');
+var tap = require('./lib/reporters/tap');
+var chai = require('chai');
 
-var canEmitExit = typeof process !== 'undefined' && process
-  && typeof process.on === 'function' && process.browser !== true;
-var canExit = typeof process !== 'undefined' && process
-  && typeof process.exit === 'function';
+var tests = [];
+var group;
 
-var loadTest;
-var processOn;
-var processExit;
-
-require('polyfill-function-prototype-bind');
-
-// Save globals so tests don't affect them
-processOn = canEmitExit ? process.on.bind(process) : null;
-processExit = canEmitExit ? process.exit.bind(process) : null;
-
-function createHarness(conf_) {
-  var results;
-  var only = false;
-  if (!conf_) {
-    conf_ = {};
-  }
-
-  results = createResult();
-  if (conf_.autoclose !== false) {
-    results.once('done', function onDone() {
-      results.close();
-    });
-  }
-
-  function test(name, conf, cb) {
-    var t = new Test(name, conf, cb);
-    addTestToResults(t);
-    return t;
-  }
-
-  function addTestToResults(t) {
-    test._tests.push(t);
-
-    t.on('end', function onResult(r) {
-      if (!r.ok && typeof r !== 'string') {
-        test._exitCode = 1;
-      }
-    });
-
-    results.push(t);
-  }
-
-  test._results = results;
-  test._tests = [];
-  test.createStream = function createStream(opts) {
-    return results.createStream(opts);
-  };
-
-  test.only = function testOnly(name, conf, cb) {
-    if (only) throw new Error('there can only be one only test');
-    results.only(name);
-    only = true;
-    return test.apply(null, arguments);
-  };
-
-  test.skip = function skip() {
-    var t = Test.skip.apply(null, arguments);
-    addTestToResults(t);
-    return t;
-  };
-
-  test._exitCode = 0;
-
-  test.close = function close() {
-    results.close();
-  };
-
-  return test;
+/**
+ * Main test function
+ */
+function test(/* name_, _opts, _cb */) {
+  var t = FnObj.apply(null, arguments);
+  tests.push(t);
 }
 
-function createExitHarness(conf) {
-  var harness;
-  var stream;
-  var es;
-
-  if (!conf) conf = {};
-  harness = createHarness({
-    autoclose: conf.autoclose || false
+setAsap(function() {
+  var groupOutput = executeGroup(tests);
+  var processOutput = tap(groupOutput);
+  var hasError = false;
+  groupOutput.on('data', function(info) {
+    if (!info.success) {
+      hasError = true;
+    }
   });
-
-  stream = harness.createStream({objectMode: conf.objectMode});
-  es = stream.pipe(conf.stream || createDefaultStream());
-  if (canEmitExit) {
-    es.on('error', function onError() {
-      harness._exitCode = 1;
-    });
-  }
-
-  if (conf.exit === false) {
-    return harness;
-  }
-  if (!canEmitExit || !canExit) {
-    return harness;
-  }
-
-  processOn('exit', function onExit(code) {
-    // let the process exit cleanly.
-    if (code !== 0) {
+  processOutput.pipe(process.stdout);
+  process.on('exit', function(code) {
+    if (code || !hasError) {
       return;
     }
 
-    harness.close();
-    processExit(code || harness._exitCode);
+    process.exit(1);
   });
+});
 
-  return harness;
-}
+module.exports.test = test;
+module.exports.assert = chai.assert;
+module.exports.expect = chai.expect;
 
-loadTest = (function loadTestFn() {
-  var harness;
-
-  function getHarness(opts) {
-    if (!opts) opts = {};
-    opts.autoclose = !canEmitExit;
-    if (!harness) harness = createExitHarness(opts);
-    return harness;
-  }
-
-  function lazyLoad() {
-    return getHarness().apply(this, arguments);
-  }
-
-  lazyLoad.only = function only() {
-    return getHarness().only.apply(this, arguments);
-  };
-
-  lazyLoad.createStream = function createStream(opts) {
-    var output;
-
-    if (!opts) {
-      opts = {};
-    }
-    if (!harness) {
-      output = through();
-      getHarness({stream: output, objectMode: opts.objectMode});
-      return output;
-    }
-    return harness.createStream(opts);
-  };
-
-  lazyLoad.getHarness = getHarness;
-
-  return lazyLoad;
-})();
-
-module.exports = loadTest;
-module.exports.createHarness = createHarness;

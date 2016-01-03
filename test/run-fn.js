@@ -1,10 +1,11 @@
 var tap = require('tap')
 var assert = require('chai').assert;
-var Test = require('../lib/TestWrapper');
+var Test = require('../lib/fn-obj');
 var Promise  = require('promise-polyfill');
 var Observable = require("zen-observable");
 var through = require('through');
 var cp = require('child_process');
+var runFn = require('../lib/run-fn');
 var test = tap.test;
 var noop = function() {};
 
@@ -37,109 +38,75 @@ test('options in other order', function(t) {
   t.end();
 });
 
-test('skip', function(t) {
-  var tes = Test.skip('hello', noop);
-  tes.on('end', function(val) {
-    t.is(val.skip, true);
-    t.end();
-  });
-  tes.run();
-});
-
-test('skip in options', function(t) {
-  var tes = Test('hello', noop, {skip: true});
-  tes.on('end', function(val) {
-    t.is(val.skip, true);
-    t.end();
-  });
-  tes.run();
-});
-
 test('timeout', function(t) {
   var tes = Test('hello', function(done) {}, {timeout: 10});
-  tes.on('end', function(val) {
+  runFn(tes).catch(function(val) {
     t.is(val.error.message, 'test timed out after 10ms');
     t.end();
   });
-  tes.run();
 });
 
-test('no callback skipped', function(t) {
-  var tes = Test('hello');
-  tes.on('end', function(val) {
-    t.is(val.skip, true);
-    t.end();
-  });
-  tes.run();
+test('no callback error', function(t) {
+  var error = false;
+  try {
+    var tes = Test('hello');
+  } catch(e) {
+    error = true;
+  }
+  t.is(error, true);
+  t.end();
 });
 
 test('null options', function(t) {
   var tes = Test('hello', null, function() {
     assert(true);
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
+  runFn(tes).then(function() {
     t.end();
   });
-  tes.run();
 });
 
 test('use function name', function (t) {
   var tes = Test(function useFunctionName() {
     assert(true);
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
+  runFn(tes).then(function() {
+    t.is(tes.name, 'useFunctionName');
     t.end();
   });
-  tes.run();
 });
 
 test('anonymous function name', function (t) {
   var tes = Test(function () {
     assert(true);
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
+  runFn(tes).then(function() {
+    t.is(tes.name, '(anonymous)');
     t.end();
   });
-  tes.run();
 });
 
 test('run test twice', function (t) {
   var tes = Test('run test twice', function () {
     assert(true);
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
+  Promise.all([
+    runFn(tes),
+    runFn(tes)
+  ]).then(function() {
     t.end();
   });
-  tes.run();
-  tes.run();
-});
-
-test('passing test', function(t) {
-  var tes = Test('hello', function() {
-    assert(true);
-  });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
-    t.end();
-  });
-  tes.run();
 });
 
 test('failing test', function(t) {
   var tes = Test('hello', function() {
     assert.equal(false, true);
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, false);
+  runFn(tes).catch(function(val) {
     t.is(val.actual, false);
     t.is(val.expected, true);
     t.end();
   });
-  tes.run();
 });
 
 test('failing test callback', function(t) {
@@ -149,13 +116,11 @@ test('failing test callback', function(t) {
       done();
     }, 10);
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, false);
+  runFn(tes).catch(function(val) {
     t.is(val.actual, 1);
     t.is(val.expected, 2);
     t.end();
   });
-  tes.run();
 });
 
 test('failing test callback with error', function(t) {
@@ -164,11 +129,9 @@ test('failing test callback with error', function(t) {
       done(new Error());
     }, 10);
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, false);
+  runFn(tes).catch(function() {
     t.end();
   });
-  tes.run();
 });
 
 test('passing callback', function(t) {
@@ -178,11 +141,9 @@ test('passing callback', function(t) {
       done();
     }, 10);
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
+  runFn(tes).then(function() {
     t.end();
   });
-  tes.run();
 });
 
 test('failing Promise', function(t) {
@@ -191,13 +152,11 @@ test('failing Promise', function(t) {
       assert.equal(1, 2);
     });
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, false);
+  runFn(tes).catch(function(val) {
     t.is(val.actual, 1);
     t.is(val.expected, 2);
     t.end();
   });
-  tes.run();
 });
 
 test('fail before Promise created', function(t) {
@@ -205,13 +164,11 @@ test('fail before Promise created', function(t) {
     assert.equal(1, 2);
     return Promise.resolve(10);
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, false);
+  runFn(tes).catch(function(val) {
     t.is(val.actual, 1);
     t.is(val.expected, 2);
     t.end();
   });
-  tes.run();
 });
 
 test('passing Promise', function(t) {
@@ -222,12 +179,10 @@ test('passing Promise', function(t) {
       value = 1;
     });
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
+  runFn(tes).then(function() {
     t.is(value, 1);
     t.end();
   });
-  tes.run();
 });
 
 test('failing Observable', function(t) {
@@ -241,31 +196,26 @@ test('failing Observable', function(t) {
       observer.complete();
     });
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, false);
+  runFn(tes).catch(function(val) {
     t.is(val.actual, 1);
     t.is(val.expected, 2);
     t.end();
   });
-  tes.run();
 });
 
 test('failing Observable map', function(t) {
   var tes = Test('test failing observable', function() {
-    return Observable.of([1,2,3]).map(function(val) {
+    return Observable.of([1,2,3]).map(function() {
       assert.equal(3, 4);
       return 1;
     });
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, false);
+  runFn(tes).catch(function(val) {
     t.is(val.actual, 3);
     t.is(val.expected, 4);
     t.end();
   });
-  tes.run();
 });
-
 
 test('passing observable', function(t) {
   var tes = Test('test failing observable', function() {
@@ -278,11 +228,9 @@ test('passing observable', function(t) {
       observer.complete();
     });
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
+  runFn(tes).then(function() {
     t.end();
   });
-  tes.run();
 });
 
 test('failing stream', function(t) {
@@ -295,12 +243,10 @@ test('failing stream', function(t) {
 
     return stream;
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, false);
+  runFn(tes).catch(function(val) {
     t.is(val.error.message, 'invalid stream');
     t.end();
   });
-  tes.run();
 });
 
 test('passing stream', function(t) {
@@ -312,34 +258,27 @@ test('passing stream', function(t) {
       stream.destroy();
     }, 10);
 
-
     return stream;
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
+  runFn(tes).then(function() {
     t.end();
   });
-  tes.run();
 });
 
 test('failing process', function(t) {
-  var tes = Test('test failing observable', function() {
+  var tes = Test('test failing process', function() {
     return cp.exec('foo-bar-baz hello world');
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, false);
+  runFn(tes).catch(function() {
     t.end();
   });
-  tes.run();
 });
 
 test('passing process', function(t) {
-  var tes = Test('test failing observable', function() {
+  var tes = Test('test passing process', function() {
     return cp.exec('echo hello world');
   });
-  tes.on('end', function(val) {
-    t.is(val.ok, true);
+  runFn(tes).then(function() {
     t.end();
   });
-  tes.run();
 });
