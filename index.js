@@ -24,6 +24,9 @@ setAsap(function() {
       hasError = true;
     }
   });
+  groupOutput.on('end', function() {
+    process.exit(hasError ? 1 : 0);
+  });
   processOutput.pipe(process.stdout);
   process.on('exit', function(code) {
     if (code || !hasError) {
