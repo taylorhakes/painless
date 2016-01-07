@@ -1,6 +1,6 @@
 var FnObj = require('./lib/fn-obj');
 var executeGroup = require('./lib/execute-group');
-var setAsap = require('setAsap');
+var setAsap = require('setasap');
 var tap = require('./lib/reporters/tap');
 var chai = require('chai');
 

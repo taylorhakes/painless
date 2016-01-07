@@ -1,6 +1,6 @@
 {
   "name": "painless",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Super simple test framework for node and the browser",
   "main": "index.js",
   "dependencies": {
