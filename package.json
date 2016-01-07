@@ -1,9 +1,10 @@
 {
   "name": "painless",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Super simple test framework for node and the browser",
   "main": "index.js",
   "dependencies": {
+    "chai": "^3.4.1",
     "function-done": "^1.2.0",
     "glob": "~5.0.3",
     "setasap": "^1.0.1",
@@ -11,7 +12,6 @@
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
-    "chai": "^3.4.1",
     "concat-stream": "~1.4.1",
     "eslint": "^1.10.1",
     "eslint-config-airbnb": "^1.0.0",
