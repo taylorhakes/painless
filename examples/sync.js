@@ -7,10 +7,10 @@ var painless = require('..');
 var test = painless.test;
 var assert = painless.assert;
 
-test('Simple sync pass', function() {
+test('simple sync pass', function() {
   assert.equal(1 + 2, 3);
 });
-test('Simple sync fail', function() {
+test('simple sync fail', function() {
   assert.equal(1 + 4, 5);
 });
 

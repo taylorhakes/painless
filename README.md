@@ -6,7 +6,7 @@ Simple test structure that just works. All tests are really fast because of the 
 ## Why use painless?
 - Really fast
 - Easy to learn
-- Works with Babel, Promises, Observables, Streams, Generators, Processes, Callbacks out of the box
+- Works with ES6/Babel, Promises, Async/Await, Generators, Callbacks, Observables, Streams,  Processes,  out of the box
 - No Globals
 - Easy to debug (Tests are just basic node processes. No subprocesses)
 - Coverage support with Istanbul
@@ -23,6 +23,11 @@ Or run multiple tests
 ```
 ./node_modules/.bin/painless test/**/*.js
 ```
+Run ES6 tests
+```
+babel-node --presets es2015 ./node_modules/.bin/painless tests/*/*.js
+```
+
 Add tests to package.json
 ```js
 {
@@ -58,6 +63,18 @@ test('callback test', (done) => {
         done();
     }, 10);
 });
+
+// Async/Await Test
+test('callback test', async (done) => {
+    var result = await apiCall();
+    assert.deepEqual(result, { success: true });
+});
+
+// Generator Test
+test('callback test', function* (done) => {
+    var result = yield apiCall();
+    assert.deepEqual(result, { success: true });
+});
 ```
 
 Es5
@@ -89,6 +106,9 @@ test('callback test', function(done) {
     }, 10);
 });
 ```
+
+### Assertion
+Painless uses chai. Get more info on all available assertions here. [Chai Assertions](http://chaijs.com/api/assert/)
 
 ### Use any assertion library
 Painless comes bundled with chai assertion library, but will work with any assertion library that throws an `AssertionError`

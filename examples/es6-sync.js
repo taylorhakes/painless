@@ -5,10 +5,10 @@
 
 import { test, assert } from '..';
 
-test('Simple sync pass', () => {
+test('simple ES6 sync pass 1', () => {
   assert.equal(1 + 2, 3);
 });
-test('Simple sync fail', () => {
+test('simple ES6 sync pass 2', () => {
   assert.equal(1 + 4, 5);
 });
 
