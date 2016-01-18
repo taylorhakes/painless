@@ -25,7 +25,7 @@ Or run multiple tests
 ```
 Run ES6 tests
 ```
-babel-node --presets es2015 ./node_modules/.bin/painless tests/*/*.js
+babel-node --presets es2015 ./node_modules/.bin/painless test/**/*.js
 ```
 
 Add tests to package.json
