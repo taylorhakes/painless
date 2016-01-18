@@ -78,7 +78,7 @@ test('callback test', function* () => {
 });
 ```
 
-Es5
+ES5
 ```js
 var painless = require('painless');
 var test = painless.test;
