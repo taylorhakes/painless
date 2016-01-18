@@ -65,13 +65,13 @@ test('callback test', (done) => {
 });
 
 // Async/Await Test
-test('callback test', async (done) => {
+test('callback test', async () => {
     var result = await apiCall();
     assert.deepEqual(result, { success: true });
 });
 
 // Generator Test
-test('callback test', function* (done) => {
+test('callback test', function* () => {
     var result = yield apiCall();
     assert.deepEqual(result, { success: true });
 });
