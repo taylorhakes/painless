@@ -4,6 +4,7 @@ var setAsap = require('setasap');
 var tap = require('./lib/reporters/tap');
 var chai = require('chai');
 var sinon = require('sinon');
+var tapSpec = require('tap-spec');
 
 var tests = [];
 var group;
@@ -18,7 +19,7 @@ function test(/* name_, _opts, _cb */) {
 
 setAsap(function() {
   var groupOutput = executeGroup(tests);
-  var processOutput = tap(groupOutput);
+  var processOutput = tap(groupOutput).pipe(tapSpec());
   var hasError = false;
   groupOutput.on('data', function(info) {
     if (!info.success) {

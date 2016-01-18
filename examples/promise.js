@@ -10,9 +10,9 @@ var assert = painless.assert;
 test('simple Promise 1', function() {
   return new Promise(function(resolve) {
     setTimeout(function() {
-      assert.equal(1 + 4, 5);
+      assert.deepEqual({ red: 'blue' }, { red: 'blue' });
       resolve();
-    });
+    }, 100);
   });
 });
 test('simple Promise 2', function() {
@@ -20,6 +20,6 @@ test('simple Promise 2', function() {
     setTimeout(function() {
       assert.equal(1 + 6, 7);
       resolve();
-    });
+    }, 100);
   });
 });
