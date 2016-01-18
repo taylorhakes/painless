@@ -9,6 +9,7 @@ Simple test structure that just works. All tests are really fast because of the 
 - Works with ES6/Babel, Promises, Async/Await, Generators, Callbacks, Observables, Streams,  Processes,  out of the box
 - No Globals
 - Easy to debug (Tests are just basic node processes. No subprocesses)
+- Comes bundled with assertions and mocking (Chai and Sinon)
 - Coverage support with Istanbul
 
 ## Install
@@ -107,8 +108,63 @@ test('callback test', function(done) {
 });
 ```
 
-### Assertion
-Painless uses chai. Get more info on all available assertions here. [Chai Assertions](http://chaijs.com/api/assert/)
+### Assertions
+Painless uses Chai. Get more info on all available assertions here. [Chai Assertions](http://chaijs.com/api/assert/)
 
-### Use any assertion library
-Painless comes bundled with chai assertion library, but will work with any assertion library that throws an `AssertionError`
+Access Chai
+```js
+// ES6
+import { assert } from 'painless';
+
+// ES5
+var painless = require('painless');
+var assert = painless.assert;
+```
+It is possible to use any other assertion library as well. You will receive better errors if the library supports [AssertionError](http://wiki.commonjs.org/wiki/Unit_Testing/1.0_
+
+### Spying/Stubs/Mocking
+Painless comes bundled with Sinon to allow all types of mocking. Get more info here. [Sinon Library](http://sinonjs.org/docs/)
+
+Access Spy
+```js
+// ES6
+import { spy } from 'painless';
+
+// ES5
+var painless = require('painless');
+var spy = painless.spy;
+```
+
+Access Stub
+```js
+// ES6
+import { stub } from 'painless';
+
+// ES5
+var painless = require('painless');
+var stub = painless.stub;
+```
+
+Access Mocks
+```js
+// ES6
+import { mock } from 'painless';
+
+// ES5
+var painless = require('painless');
+var mock = painless.mock;
+```
+
+Accessing other Sinon functionality
+```js
+// ES6
+import { sinon } from 'painless';
+
+const xhr = sinon.useFakeXMLHttpRequest();
+
+// ES5
+var painless = require('painless');
+var sinon = painless.sinon;
+
+var xhr = sinon.useFakeXMLHttpRequest();
+```

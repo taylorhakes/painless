@@ -3,6 +3,7 @@ var executeGroup = require('./lib/execute-group');
 var setAsap = require('setasap');
 var tap = require('./lib/reporters/tap');
 var chai = require('chai');
+var sinon = require('sinon');
 
 var tests = [];
 var group;
@@ -40,4 +41,8 @@ setAsap(function() {
 module.exports.test = test;
 module.exports.assert = chai.assert;
 module.exports.expect = chai.expect;
+module.exports.spy = sinon.spy;
+module.exports.stub = sinon.stub;
+module.exports.mock = sinon.mock;
+module.exports.sinon = sinon;
 
