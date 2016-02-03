@@ -6,6 +6,7 @@
   "bin": "./bin/painless",
   "dependencies": {
     "chai": "^3.4.1",
+    "difflet": "^1.0.1",
     "function-done": "^1.2.0",
     "glob": "~5.0.3",
     "setasap": "^1.0.1",

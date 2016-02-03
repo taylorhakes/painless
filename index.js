@@ -1,24 +1,47 @@
 var FnObj = require('./lib/fn-obj');
-var executeGroup = require('./lib/execute-group');
+var executeGroups = require('./lib/execute-groups');
 var setAsap = require('setasap');
 var tap = require('./lib/reporters/tap');
 var chai = require('chai');
 var sinon = require('sinon');
 var tapSpec = require('tap-spec');
 
-var tests = [];
-var group;
+var groups = [];
 
 /**
  * Main test function
  */
-function test(/* name_, _opts, _cb */) {
-  var t = FnObj.apply(null, arguments);
-  tests.push(t);
+function createTest() {
+  var tests = [];
+  var beforeEach = [];
+  var afterEach = [];
+
+  function test(/* name_, _opts, _cb */) {
+    var t = FnObj.apply(null, arguments);
+    tests.push(t);
+  }
+
+  test.beforeEach = function(/* name_, _opts, _cb */) {
+    var t = FnObj.apply(null, arguments);
+    beforeEach.push(t);
+  };
+
+  test.afterEach = function(/* name_, _opts, _cb */) {
+    var t = FnObj.apply(null, arguments);
+    afterEach.push(t);
+  };
+
+  groups.push({
+    beforeEach: beforeEach,
+    afterEach: afterEach,
+    tests: tests
+  });
+
+  return test;
 }
 
 setAsap(function() {
-  var groupOutput = executeGroup(tests);
+  var groupOutput = executeGroups(groups);
   var processOutput = tap(groupOutput).pipe(tapSpec());
   var hasError = false;
   groupOutput.on('data', function(info) {
@@ -39,7 +62,7 @@ setAsap(function() {
   });
 });
 
-module.exports.test = test;
+module.exports.createTest = createTest;
 module.exports.assert = chai.assert;
 module.exports.expect = chai.expect;
 module.exports.spy = sinon.spy;
