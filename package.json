@@ -29,7 +29,7 @@
     "zen-observable": "^0.1.8"
   },
   "scripts": {
-    "test": "eslint lib/** *.js && tap test/**/*.js --cov"
+    "test": "eslint lib/** *.js && tap test/**/*.js"
   },
   "repository": {
     "type": "git",
