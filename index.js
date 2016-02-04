@@ -5,6 +5,7 @@ var sinon = require('sinon');
 var tapSpec = require('tap-spec');
 var createHarness = require('./lib/create-harness');
 
+var start = Date.now();
 var harness = createHarness();
 
 setAsap(function() {
@@ -17,6 +18,7 @@ setAsap(function() {
     }
   });
   groupOutput.on('end', function() {
+    console.log(Date.now() - start);
     process.exit(hasError ? 1 : 0);
   });
   processOutput.pipe(process.stdout);
