@@ -1,4 +1,6 @@
 # Painless Test Runner
+[![Build Status](https://travis-ci.org/taylorhakes/painless.svg?branch=master)](https://travis-ci.org/taylorhakes/painless)
+[![Coverage Status](https://coveralls.io/repos/github/taylorhakes/painless/badge.svg?branch=master)](https://coveralls.io/github/taylorhakes/painless?branch=master)
 
 Simple test structure that just works. All tests are really fast because of the lightweight syntax.
   The code base is really small < 500 lines.
