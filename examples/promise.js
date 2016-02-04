@@ -7,9 +7,9 @@ var painless = require('..');
 var test = painless.createTest();
 var assert = painless.assert;
 
-test('simple Promise 1', function() {
-  return new Promise(function(resolve) {
-    setTimeout(function() {
+test('simple Promise 1', function testFn() {
+  return new Promise(function prom(resolve) {
+    setTimeout(function timeout() {
       assert.deepEqual({ red: 'blue' }, { red: 'blue' });
       resolve();
     }, 100);

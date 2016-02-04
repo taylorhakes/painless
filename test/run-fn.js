@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap')
 var assert = require('chai').assert;
 var Test = require('../lib/fn-obj');

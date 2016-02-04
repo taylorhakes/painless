@@ -7,7 +7,7 @@
 import { test, assert } from '..';
 
 function wait(time) {
-  return new Promise(function(resolve) {
+  return new Promise(function prom(resolve) {
     setTimeout(resolve, time);
   });
 }
