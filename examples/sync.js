@@ -4,7 +4,7 @@ node examples/sync.js
  */
 
 var painless = require('..');
-var test = painless.createTest();
+var test = painless.createGroup();
 var assert = painless.assert;
 
 test('simple sync pass', function sync1() {

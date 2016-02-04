@@ -3,7 +3,9 @@
  babel-node --presets es2015 examples/es6-sync.js
  */
 
-import { test, assert } from '..';
+import { createGroup, assert } from '..';
+
+const test = createGroup();
 
 test('simple ES6 sync pass 1', () => {
   assert.equal(1 + 2, 3);

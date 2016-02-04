@@ -4,7 +4,7 @@
  */
 
 var painless = require('..');
-var test = painless.createTest();
+var test = painless.createGroup();
 var assert = painless.assert;
 
 test('simple Promise 1', function testFn() {

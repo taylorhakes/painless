@@ -4,7 +4,9 @@
 
  */
 
-import { test, assert } from '..';
+import { createGroup, assert } from '..';
+
+const test = createGroup();
 
 function wait(time) {
   return new Promise(function prom(resolve) {

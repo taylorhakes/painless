@@ -1,9 +1,12 @@
 var setAsap = require('setasap');
 var tap = require('./lib/reporters/tap');
 var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
 var sinon = require('sinon');
 var tapSpec = require('tap-spec');
 var createHarness = require('./lib/create-harness');
+
+chai.use(chaiAsPromised);
 
 var harness = createHarness();
 
@@ -29,9 +32,8 @@ setAsap(function asap() {
   });
 });
 
-module.exports.createTest = harness.createTest;
+module.exports.createGroup = harness.createGroup;
 module.exports.assert = chai.assert;
-module.exports.expect = chai.expect;
 module.exports.spy = sinon.spy;
 module.exports.stub = sinon.stub;
 module.exports.mock = sinon.mock;

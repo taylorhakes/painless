@@ -12,7 +12,7 @@ function error() {
 
 test('harness single group all pass', function(t) {
   var har = Harness();
-  var test = har.createTest();
+  var test = har.createGroup();
   t.plan(2);
 
   test('test1', noop);
@@ -33,7 +33,7 @@ test('harness single group all pass', function(t) {
 
 test('harness single group all pass beforeEach and afterEach', function(t) {
   var har = Harness();
-  var test = har.createTest();
+  var test = har.createGroup();
   var beforeCalled = false;
   var afterCalled = false;
   t.plan(4);
@@ -76,7 +76,7 @@ test('harness single group all pass beforeEach and afterEach', function(t) {
 
 test('success multiple errors', function(t) {
   var har = Harness();
-  var test = har.createTest();
+  var test = har.createGroup();
 
   test('test1', error);
   test('test2', noop);
@@ -103,8 +103,8 @@ test('success multiple errors', function(t) {
 
 test('multiple groups', function(t) {
   var har = Harness();
-  var test1 = har.createTest();
-  var test2 = har.createTest();
+  var test1 = har.createGroup();
+  var test2 = har.createGroup();
 
   test1('test1', error);
   test2('test2', noop);
@@ -126,7 +126,7 @@ test('multiple groups', function(t) {
 
 test('group without tests', function(t) {
   var har = Harness();
-  har.createTest();
+  har.createGroup();
   var output = har.run();
   output.on('end', t.end);
 });

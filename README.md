@@ -42,7 +42,9 @@ Add tests to package.json
 ## Example Test
 ES6
 ```js
-import { test, assert } from 'painless';
+import { createGroup, assert } from 'painless';
+
+const test = createGroup();
 
 // Sync test
 test('sync test', () => {
@@ -83,7 +85,7 @@ test('callback test', function* () => {
 ES5
 ```js
 var painless = require('painless');
-var test = painless.test;
+var test = painless.createGroup();
 var assert = painless.assert;
 
 // Sync test
@@ -111,7 +113,8 @@ test('callback test', function(done) {
 ```
 
 ### Assertions
-Painless uses Chai. Get more info on all available assertions here. [Chai Assertions](http://chaijs.com/api/assert/)
+Painless uses Chai and Chai-as-promised. Get more info on all available assertions here. [Chai Assertions](http://chaijs.com/api/assert/).
+[Chai-as-promised](https://github.com/domenic/chai-as-promised) adds Promise assertions.
 
 Access Chai
 ```js
