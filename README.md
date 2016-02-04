@@ -125,7 +125,7 @@ import { assert } from 'painless';
 var painless = require('painless');
 var assert = painless.assert;
 ```
-It is possible to use any other assertion library as well. You will receive better errors if the library supports [AssertionError](http://wiki.commonjs.org/wiki/Unit_Testing/1.0_
+It is possible to use any other assertion library as well. You will receive better errors if the library supports [AssertionError](http://wiki.commonjs.org/wiki/Unit_Testing/1.0#Assert)
 
 ### Spying/Stubs/Mocking
 Painless comes bundled with Sinon to allow all types of mocking. Get more info here. [Sinon Library](http://sinonjs.org/docs/)
