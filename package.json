@@ -1,6 +1,6 @@
 {
   "name": "painless",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Super simple test framework for node and the browser",
   "main": "index.js",
   "bin": "./bin/painless",
@@ -19,6 +19,7 @@
     "concat-stream": "~1.4.1",
     "eslint": "^1.10.1",
     "eslint-config-airbnb": "^1.0.0",
+    "eslint-plugin-react": "^3.16.1",
     "falafel": "~1.0.1",
     "js-yaml": "^3.3.1",
     "promise-polyfill": "^2.1.0",

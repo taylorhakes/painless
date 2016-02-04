@@ -1,47 +1,14 @@
-var FnObj = require('./lib/fn-obj');
-var executeGroups = require('./lib/execute-groups');
 var setAsap = require('setasap');
 var tap = require('./lib/reporters/tap');
 var chai = require('chai');
 var sinon = require('sinon');
 var tapSpec = require('tap-spec');
+var createHarness = require('./lib/create-harness');
 
-var groups = [];
-
-/**
- * Main test function
- */
-function createTest() {
-  var tests = [];
-  var beforeEach = [];
-  var afterEach = [];
-
-  function test(/* name_, _opts, _cb */) {
-    var t = FnObj.apply(null, arguments);
-    tests.push(t);
-  }
-
-  test.beforeEach = function(/* name_, _opts, _cb */) {
-    var t = FnObj.apply(null, arguments);
-    beforeEach.push(t);
-  };
-
-  test.afterEach = function(/* name_, _opts, _cb */) {
-    var t = FnObj.apply(null, arguments);
-    afterEach.push(t);
-  };
-
-  groups.push({
-    beforeEach: beforeEach,
-    afterEach: afterEach,
-    tests: tests
-  });
-
-  return test;
-}
+var harness = createHarness();
 
 setAsap(function() {
-  var groupOutput = executeGroups(groups);
+  var groupOutput = harness.run();
   var processOutput = tap(groupOutput).pipe(tapSpec());
   var hasError = false;
   groupOutput.on('data', function(info) {
@@ -62,7 +29,7 @@ setAsap(function() {
   });
 });
 
-module.exports.createTest = createTest;
+module.exports.createTest = harness.createTest;
 module.exports.assert = chai.assert;
 module.exports.expect = chai.expect;
 module.exports.spy = sinon.spy;

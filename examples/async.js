@@ -12,12 +12,12 @@ function wait(time) {
   });
 }
 
-test('simple generator 1', async () => {
+test('simple generator 1', async function gen() {
   assert.equal(1 + 2, 3);
   await wait(100);
   assert.equal(5 + 6, 11);
 });
-test('simple generator 2', async () => {
+test('simple generator 2', async function gen2() {
   assert.equal(1 + 5, 6);
   await wait(100);
   assert.equal(5 + 9, 14);

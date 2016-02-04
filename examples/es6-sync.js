@@ -11,5 +11,3 @@ test('simple ES6 sync pass 1', () => {
 test('simple ES6 sync pass 2', () => {
   assert.equal(1 + 4, 5);
 });
-
-
