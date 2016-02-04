@@ -5,5 +5,3 @@ node_js:
   - '0.12'
   - '4'
   - '5'
-after_success:
-  - '[ -z "$COVERALLS_REPO_TOKEN" ] && tap --cov --coverage-report=text-lcov | ./node_modules/.bin/coveralls'
