@@ -1,6 +1,6 @@
 /*
  Run by:
- babel-node --presets es2015 examples/async.js
+ babel-node --presets es2015 examples/async-await.js
 
  */
 
