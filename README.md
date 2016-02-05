@@ -1,9 +1,9 @@
-# Painless Test Runner
+# Painless Test Library
 [![Build Status](https://travis-ci.org/taylorhakes/painless.svg?branch=master)](https://travis-ci.org/taylorhakes/painless)
 [![Coverage Status](https://coveralls.io/repos/github/taylorhakes/painless/badge.svg?branch=master)](https://coveralls.io/github/taylorhakes/painless?branch=master)
 
-Simple test structure that just works. All tests are really fast because of the lightweight syntax.
-  The code base is really small < 500 lines.
+Simple test structure that is easy to learn and use. All tests are really fast because of the lightweight syntax.
+  The code base is really small. Less than 500 lines.
 
 ## Why use painless?
 - Really fast
@@ -12,6 +12,7 @@ Simple test structure that just works. All tests are really fast because of the 
 - No Globals
 - Easy to debug (Tests are just basic node processes. No subprocesses)
 - Comes bundled with assertions and mocking (Chai and Sinon)
+- 100% Test Coverage
 - Coverage support with Istanbul
 
 ## Install
