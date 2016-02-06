@@ -8,9 +8,9 @@ var test = painless.createGroup();
 var assert = painless.assert;
 
 test('simple sync pass', function sync1() {
-  assert.equal(1 + 2, 3);
+  assert.deepEqual([1,2,3], [1,2,3]);
 });
 
 test('simple sync pass 2', function sync2() {
-  assert.equal(1 + 2, 3);
+  assert.equal(5, 3);
 });

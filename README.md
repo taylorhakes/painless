@@ -15,6 +15,39 @@ Simple test structure that is easy to learn and use. All tests are really fast b
 - 100% Test Coverage
 - Coverage support with Istanbul
 
+## Compared to other frameworks
+#### Mocha
+- Has everything you need included (assertions, mocking, etc)
+- Supports Async/Await, Promises, Generators, Observables, Streams, Processes
+- Doesn't need a separate executable to run (just run `node test.js`)
+- Is easier to debug (single process)
+- Has no globals
+- Much faster
+
+#### Ava
+- Easier to debug (single process)
+- Has everything you need included (assertions, mocking, etc)
+- Doesn't need a separate executable to run (just run `node test.js`)
+- Faster for most types of tests (even IO tests with painless --async flag)
+- Doesn't require babel (write your tests in ES5, typescript, coffeescript, etc)
+- Built-in support for Node Streams and processes
+
+#### Jasmine
+- Supports Async/Await, Promises, Generators, Observables, Streams, Processes
+- Doesn't need a separate executable to run (just run `node test.js`)
+- Easier to debug (single process)
+- Has no globals
+- Much faster
+
+#### Tape
+- Supports Async/Await, Promises, Generators, Observables, Streams, Processes
+- Has everything you need included (assertions, mocking, etc)
+- Simpler test syntax
+- Better output format out of the box
+- Supports test groups and `beforeEach` and `afterEach`
+
+
+
 ## Install
 ```
 npm install painless --save-dev
@@ -173,4 +206,15 @@ var painless = require('painless');
 var sinon = painless.sinon;
 
 var xhr = sinon.useFakeXMLHttpRequest();
+```
+
+### Code Coverage
+Code coverage is really easy to use. Just install istanbul
+```
+npm install istanbul --save-dev
+```
+Then you can run coverage by
+```
+istanbul cover ./node_modules/bin/painless -- test/**/*.js
+```
 ```
