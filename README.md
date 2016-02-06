@@ -85,13 +85,24 @@ test('sync test', () => {
     assert.deepEqual({ a: '1' }, { a: '1'});
 });
 
-// Promise test
-test('promise test', () => {
+
+function promiseFn() {
     return new Promise((resolve) => {
         setTimeout(function() {
-            assert.deepEqual({ a: '1' }, { a: '1'});
-            resolve();
+            resolve({ a: '1' });
         }, 10);
+    });
+}
+
+// Promise test
+test('promise test', () => {
+    return assert.eventually.deepEqual(promiseFn(), { a: '1'});
+});
+
+// Promise alt syntax
+test('promise test', () => {
+    return promiseFn().then((result) => {
+        assert.deepEqual(result, { a: '1'});
     });
 });
 
@@ -125,16 +136,6 @@ var assert = painless.assert;
 // Sync test
 test('sync test', function() {
     assert.deepEqual({ a: '1' }, { a: '1'});
-});
-
-// Promise test
-test('promise test', function() {
-    return new Promise(function(resolve) {
-        setTimeout(function() {
-            assert.deepEqual({ a: '1' }, { a: '1'});
-            resolve();
-        }, 10);
-    });
 });
 
 // Callback test
