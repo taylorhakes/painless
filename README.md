@@ -217,4 +217,3 @@ Then you can run coverage by
 ```
 istanbul cover ./node_modules/bin/painless -- test/**/*.js
 ```
-```
