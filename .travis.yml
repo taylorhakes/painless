@@ -6,4 +6,4 @@ node_js:
   - '4'
   - '5'
 after_success:
-  - '[ -z "$COVERALLS_REPO_TOKEN" ] && tap --coverage-report=text-lcov | ./node_modules/.bin/coveralls'
+  - '[ -z "$COVERALLS_REPO_TOKEN" ] && echo "running coverage" && tap --coverage-report=text-lcov | ./node_modules/.bin/coveralls'
