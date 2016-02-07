@@ -226,9 +226,9 @@ var xhr = sinon.useFakeXMLHttpRequest();
 ```
 
 ### Command Line Options
-- --async,-a Run tests async. This will speed up tests that use IO or network. It is not recommended while debugging. It will make tests tough to reason about.
-- --bunch,-b Bunch size. If using the async flag, it determines the number of tests to run at the same time. By default this is 10.
-- --tap,-t Use tap output reporter instead of the default spec reported
+- `--async,-a` Run tests async. This will speed up tests that use IO or network. It is not recommended while debugging. It will make tests tough to reason about.
+- `--bunch,-b` Bunch size. If using the async flag, it determines the number of tests to run at the same time. By default this is 10.
+- `--tap,-t` Use tap output reporter instead of the default spec reported
 
 
 ### Code Coverage
