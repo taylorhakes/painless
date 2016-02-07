@@ -2,10 +2,9 @@
 [![Build Status](https://travis-ci.org/taylorhakes/painless.svg?branch=master)](https://travis-ci.org/taylorhakes/painless)
 [![Coverage Status](https://coveralls.io/repos/github/taylorhakes/painless/badge.svg?branch=master)](https://coveralls.io/github/taylorhakes/painless?branch=master)
 
-Simple test structure that is easy to learn and use. All tests are really fast because of the lightweight syntax.
-  The code base is really small. Less than 500 lines.
+Simple test structure that is easy to learn, use and debug.  Tests can be run with a standard node command `node test.js` allowing you to use all the existing node tools. Tests are really fast. In some cases 10-20x faster than other libraries. Out of the box tests can use Es6/Babel, Promises, Async/Await, Generators, Observables, Callbacks and more.
   
-## Example Test
+## Example Tests
 ES6
 ```js
 import { createGroup, assert } from 'painless';
@@ -84,7 +83,7 @@ test('callback test', function(done) {
 - Easy to learn
 - Works with ES6/Babel, Promises, Async/Await, Generators, Callbacks, Observables, Streams,  Processes,  out of the box
 - No Globals
-- Easy to debug (Tests are just basic node processes. No subprocesses)
+- Easy to debug (Tests are just basic node processes. No subprocesses or threads)
 - Comes bundled with assertions and mocking (Chai and Sinon)
 - 100% Test Coverage
 - Coverage support with Istanbul
@@ -93,7 +92,7 @@ test('callback test', function(done) {
 #### Mocha
 Painless Advantages
 - Has everything you need included (assertions, mocking, etc)
-- Supports Async/Await, Promises, Generators, Observables, Streams, Processes
+- Supports Async/Await, Promises, Generators, Observables, Streams, Processes out of the box
 - Doesn't need a separate executable to run (just run `node test.js`)
 - Is easier to debug (single process)
 - Has no globals
@@ -106,7 +105,7 @@ Mocha Advantages
 
 #### Ava
 Painless Advantages
-- Easier to debug (single process)
+- Easier to debug (single process and thread)
 - Has everything you need included (assertions, mocking, etc)
 - Doesn't need a separate executable to run (just run `node test.js`)
 - Faster for most types of tests (even IO tests with painless --async flag)
@@ -118,9 +117,9 @@ Ava Advantages
 
 #### Jasmine
 Painless Advantages
-- Supports Async/Await, Promises, Generators, Observables, Streams, Processes
+- Supports Async/Await, Promises, Generators, Observables, Streams, Processes out of the box
 - Doesn't need a separate executable to run (just run `node test.js`)
-- Easier to debug (single process)
+- Easier to debug (single process and thread)
 - Has no globals
 - Much faster
 
@@ -225,6 +224,10 @@ var sinon = painless.sinon;
 
 var xhr = sinon.useFakeXMLHttpRequest();
 ```
+
+### Async
+Painless has the ability to run tests async. This will execute tests at the same time, but in a single process and thread. It uses node's standard event system to execute other tests while a test is doing IO or network tasks. This can significantly speed up your tests if you are doing IO or network tests. If your tests are CPU bound, you will not see any gains because everything is running in the same thread.
+Enable async using the command options below. While testing your code, it is not recommended to use async because it will make tests harder to understand.
 
 ### Command Line Options
 - `--async,-a` Run tests async. This will speed up tests that use IO or network. It is not recommended while debugging. It will make tests tough to reason about.
