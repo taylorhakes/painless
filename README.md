@@ -243,7 +243,9 @@ istanbul cover ./node_modules/bin/painless -- test/**/*.js
 
 ## FAQS
 1. Why should I use painless over other test libraries?
+
 Go [here](#comparison) for comparisons to other test libraries. Painless is not groundbreaking in any way. If you like it, use it. It is more important to test your javascript code. The test framework is a minor detail.
 2. Why bundle other libraries (Chai, Sinon, etc)? Why not let the user decide?
+
 Painless tries to achieve a test library that just works. The goal is to be able to start writing tests as soon as possible. It is possible to switch out assertion and mocking libraries, but defaults are available.
 
