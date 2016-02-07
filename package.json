@@ -32,7 +32,7 @@
     "zen-observable": "^0.1.8"
   },
   "scripts": {
-    "test": "eslint lib/** *.js && nyc --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js"
+    "test": "eslint lib/** *.js && nyc --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js && echo $test"
   },
   "repository": {
     "type": "git",
