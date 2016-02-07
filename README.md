@@ -15,31 +15,44 @@ Simple test structure that is easy to learn and use. All tests are really fast b
 - 100% Test Coverage
 - Coverage support with Istanbul
 
-## Compared to other frameworks
+## Compared to other frameworks <a name="comparison"></a>
 #### Mocha
+Painless Advantages
 - Has everything you need included (assertions, mocking, etc)
 - Supports Async/Await, Promises, Generators, Observables, Streams, Processes
 - Doesn't need a separate executable to run (just run `node test.js`)
 - Is easier to debug (single process)
 - Has no globals
-- Much faster
+- Much faster to run tests
+Mocha Advantages
+- Supports browser and node (Painless is only node. It will support browsers soon.)
+- More widely used (more battle tested)
+- Integrated coverage
 
 #### Ava
+Painless Advantages
 - Easier to debug (single process)
 - Has everything you need included (assertions, mocking, etc)
 - Doesn't need a separate executable to run (just run `node test.js`)
 - Faster for most types of tests (even IO tests with painless --async flag)
 - Doesn't require babel (write your tests in ES5, typescript, coffeescript, etc)
-- Built-in support for Node Streams and processes
+- Built-in support for Node streams and processes
+Ava Advantages
+- Test groups are isolated (Less likely for tests to affect each other)
 
 #### Jasmine
+Painless Advantages
 - Supports Async/Await, Promises, Generators, Observables, Streams, Processes
 - Doesn't need a separate executable to run (just run `node test.js`)
 - Easier to debug (single process)
 - Has no globals
 - Much faster
+Jasmine Advantages
+- Supports browser and node (Painless is only node. It will support browsers soon.)
+- More widely used (more battle tested)
 
 #### Tape
+Painless Advantages
 - Supports Async/Await, Promises, Generators, Observables, Streams, Processes
 - Has everything you need included (assertions, mocking, etc)
 - Simpler test syntax
@@ -209,6 +222,12 @@ var sinon = painless.sinon;
 var xhr = sinon.useFakeXMLHttpRequest();
 ```
 
+### Command Line Options
+--async,-a Run tests async. This will speed up tests that use IO or network. It is not recommended while debugging. It will make tests tough to reason about.
+--bunch,-b Bunch size. If using the async flag, it determines the number of tests to run at the same time. By default this is 10.
+--tap,-t Use tap output reporter instead of the default spec reported
+
+
 ### Code Coverage
 Code coverage is really easy to use. Just install istanbul
 ```
@@ -218,3 +237,10 @@ Then you can run coverage by
 ```
 istanbul cover ./node_modules/bin/painless -- test/**/*.js
 ```
+
+## FAQS
+1. Why should I use painless over other test libraries?
+Go [here](#comparison) for comparisons to other test libraries. Painless is not groundbreaking in any way. If you like it, use it. It is more important to test your javascript code. The test framework is a minor detail.
+2. Why bundle other libraries (Chai, Sinon, etc)? Why not let the user decide?
+Painless tries to achieve a test library that just works. The goal is to be able to start writing tests as soon as possible. It is possible to switch out assertion and mocking libraries, but defaults are available.
+

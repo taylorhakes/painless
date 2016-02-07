@@ -12,5 +12,5 @@ test('simple sync pass', function sync1() {
 });
 
 test('simple sync pass 2', function sync2() {
-  assert.equal(5, 3);
+  assert.equal(5, 5);
 });
