@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/taylorhakes/painless.svg?branch=master)](https://travis-ci.org/taylorhakes/painless)
 [![Coverage Status](https://coveralls.io/repos/github/taylorhakes/painless/badge.svg?branch=master)](https://coveralls.io/github/taylorhakes/painless?branch=master)
 
-Simple test structure that is easy to learn, use and debug.  Tests can be run with a standard node command `node test.js` allowing you to use all the existing node tools. Tests are really fast. In some cases 10-20x faster than other libraries. Out of the box tests can use Es6/Babel, Promises, Async/Await, Generators, Observables, Callbacks and more.
+Simple test structure that is easy to learn, use and debug.  Tests can be run with a standard node command `node test.js` allowing you to use all the existing node tools. Tests are really fast. In some cases 10-20x faster than other libraries. Out of the box tests can use ES6/Babel, Promises, Async/Await, Generators, Observables, Callbacks and more.
   
 ## Example Tests
 ES6
