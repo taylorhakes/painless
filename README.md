@@ -227,7 +227,7 @@ var xhr = sinon.useFakeXMLHttpRequest();
 
 ### Async
 Painless has the ability to run tests async. This will execute tests at the same time, but in a single process and thread. It uses node's standard event system to execute other tests while a test is doing IO or network tasks. This can significantly speed up your tests if you are doing IO or network tests. If your tests are CPU bound, you will not see any gains because everything is running in the same thread.
-Enable async using the command options below. While testing your code, it is not recommended to use async because it will make tests harder to understand.
+Enable async using the command options below. While debugging your tests, it is not recommended to use async because it will make execution flow harder to understand.
 
 ### Command Line Options
 - `--async,-a` Run tests async. This will speed up tests that use IO or network. It is not recommended while debugging. It will make tests tough to reason about.
