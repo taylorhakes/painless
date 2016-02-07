@@ -27,11 +27,12 @@
     "eslint-plugin-react": "^3.16.1",
     "falafel": "~1.0.1",
     "js-yaml": "^3.3.1",
+    "nyc": "^5.6.0",
     "tap": "^5.4.2",
     "zen-observable": "^0.1.8"
   },
   "scripts": {
-    "test": "eslint lib/** *.js && tap test/**/*.js"
+    "test": "eslint lib/** *.js && nyc --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js"
   },
   "repository": {
     "type": "git",

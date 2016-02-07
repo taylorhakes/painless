@@ -34,13 +34,6 @@ setAsap(function asap() {
     process.exit(hasError ? 1 : 0);
   });
   processOutput.pipe(process.stdout);
-  process.on('exit', function onExit(code) {
-    if (code || !hasError) {
-      return;
-    }
-
-    process.exit(1);
-  });
 });
 
 module.exports.createGroup = harness.createGroup;

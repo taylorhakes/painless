@@ -15,7 +15,7 @@ function delayedPromise(val) {
   });
 }
 
-test('simple Promise 1', function testFn() {
+test('Chai-as-promised 1', function testFn() {
   var prom = delayedPromise(10);
 
   // Must return the assert or it will not wait
