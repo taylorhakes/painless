@@ -26,19 +26,19 @@ function promiseFn() {
     });
 }
 
-// Promise test
+// Promise test. return assert.eventually to wait for Promise
 test('promise test', () => {
     return assert.eventually.deepEqual(promiseFn(), { a: '1'});
 });
 
-// Promise alt syntax
+// Promise alt syntax. Return a promise and tests will wait automatically
 test('promise test', () => {
     return promiseFn().then((result) => {
         assert.deepEqual(result, { a: '1'});
     });
 });
 
-// Callback test
+// Callback test. If a param is specified on the test function, it will wait until done() is called
 test('callback test', (done) => {
     setTimeout(function() {
         assert.deepEqual({ a: '1' }, { a: '1'});
@@ -46,7 +46,7 @@ test('callback test', (done) => {
     }, 10);
 });
 
-// Async/Await Test
+// Async/Await Test. Works with babel
 test('callback test', async () => {
     var result = await apiCall();
     assert.deepEqual(result, { success: true });
