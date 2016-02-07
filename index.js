@@ -5,14 +5,25 @@ var chaiAsPromised = require('chai-as-promised');
 var sinon = require('sinon');
 var tapSpec = require('tap-spec');
 var createHarness = require('./lib/create-harness');
+var argv = require('minimist')(process.argv.slice(2), {
+  boolean: ['async', 'tap'],
+  alias: {
+    a: 'async',
+    b: 'bunch',
+    t: 'tap'
+  }
+});
 
 chai.use(chaiAsPromised);
 
 var harness = createHarness();
 
 setAsap(function asap() {
-  var groupOutput = harness.run();
-  var processOutput = tap(groupOutput).pipe(tapSpec());
+  var groupOutput = harness.run(argv);
+  var processOutput = tap(groupOutput);
+  if (!argv.tap) {
+    processOutput = processOutput.pipe(tapSpec());
+  }
   var hasError = false;
   groupOutput.on('data', function onData(info) {
     if (!info.success) {
