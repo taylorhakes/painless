@@ -24,6 +24,7 @@ Painless Advantages
 - Is easier to debug (single process)
 - Has no globals
 - Much faster to run tests
+
 Mocha Advantages
 - Supports browser and node (Painless is only node. It will support browsers soon.)
 - More widely used (more battle tested)
@@ -37,6 +38,7 @@ Painless Advantages
 - Faster for most types of tests (even IO tests with painless --async flag)
 - Doesn't require babel (write your tests in ES5, typescript, coffeescript, etc)
 - Built-in support for Node streams and processes
+
 Ava Advantages
 - Test groups are isolated (Less likely for tests to affect each other)
 
@@ -47,6 +49,7 @@ Painless Advantages
 - Easier to debug (single process)
 - Has no globals
 - Much faster
+
 Jasmine Advantages
 - Supports browser and node (Painless is only node. It will support browsers soon.)
 - More widely used (more battle tested)
