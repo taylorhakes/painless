@@ -129,6 +129,7 @@ Jasmine Advantages
 
 #### Tape
 Painless Advantages
+- Exceptions are caught in each test and reported. Your tests don't stop at the first failure.
 - Supports Async/Await, Promises, Generators, Observables, Streams, Processes
 - Has everything you need included (assertions, mocking, etc)
 - Simpler test syntax
