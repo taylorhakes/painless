@@ -92,7 +92,7 @@ test('callback test', function(done) {
 #### Mocha
 Painless Advantages
 - Has everything you need included (assertions, mocking, etc)
-- Supports Async/Await, Promises, Generators, Observables, Streams, Processes out of the box
+- Supports Generators, Observables, Streams, Processes out of the box
 - Doesn't need a separate executable to run (just run `node test.js`)
 - Is easier to debug (single process)
 - Has no globals
