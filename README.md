@@ -132,9 +132,9 @@ Painless Advantages
 - Exceptions are caught in each test and reported. Your tests don't stop at the first failure.
 - Supports Promises, Async/Await, Generators, Observables, Streams, Processes
 - Has everything you need included (assertions, mocking, etc)
-- Simpler test syntax
-- Better output format out of the box (spec instead of tap)
-- Supports test groups and `beforeEach` and `afterEach`
+- Simpler test syntax (No need to call `t.end()`. Your tests end based on the return)
+- Better output format out of the box (spec instead of tap. painless supports tap too)
+- Supports test groups (`beforeEach` and `afterEach`)
 
 
 
