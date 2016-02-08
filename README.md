@@ -117,7 +117,7 @@ Ava Advantages
 
 #### Jasmine
 Painless Advantages
-- Supports Async/Await, Promises, Generators, Observables, Streams, Processes out of the box
+- Supports Promises, Async/Await, Generators, Observables, Streams, Processes out of the box
 - Doesn't need a separate executable to run (just run `node test.js`)
 - Easier to debug (single process and thread)
 - Has no globals
@@ -130,7 +130,7 @@ Jasmine Advantages
 #### Tape
 Painless Advantages
 - Exceptions are caught in each test and reported. Your tests don't stop at the first failure.
-- Supports Async/Await, Promises, Generators, Observables, Streams, Processes
+- Supports Promises, Async/Await, Generators, Observables, Streams, Processes
 - Has everything you need included (assertions, mocking, etc)
 - Simpler test syntax
 - Better output format out of the box (spec instead of tap)
