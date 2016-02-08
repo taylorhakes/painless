@@ -132,7 +132,7 @@ Painless Advantages
 - Supports Async/Await, Promises, Generators, Observables, Streams, Processes
 - Has everything you need included (assertions, mocking, etc)
 - Simpler test syntax
-- Better output format out of the box
+- Better output format out of the box (spec instead of tap)
 - Supports test groups and `beforeEach` and `afterEach`
 
 
