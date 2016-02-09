@@ -42,4 +42,5 @@ module.exports.spy = sinon.spy;
 module.exports.stub = sinon.stub;
 module.exports.mock = sinon.mock;
 module.exports.sinon = sinon;
+module.exports.chai = chai;
 
