@@ -1,18 +1,28 @@
 var setAsap = require('setasap');
 var tap = require('./lib/reporters/tap');
+var json = require('./lib/reporters/json');
+var dot = require('./lib/reporters/dot');
+var spec = require('./lib/reporters/spec');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 var sinon = require('sinon');
-var tapSpec = require('tap-spec');
 var createHarness = require('./lib/create-harness');
 var argv = require('minimist')(process.argv.slice(2), {
   boolean: ['async', 'tap'],
   alias: {
     a: 'async',
     b: 'bunch',
-    t: 'tap'
+    t: 'tap',
+    r: 'reporter'
   }
 });
+
+var reporters = {
+  dot: dot,
+  json: json,
+  tap: tap,
+  spec: spec
+};
 
 chai.use(chaiAsPromised);
 
@@ -20,13 +30,20 @@ var harness = createHarness();
 
 setAsap(function asap() {
   var groupOutput = harness.run(argv);
-  var processOutput = tap(groupOutput);
-  if (!argv.tap) {
-    processOutput = processOutput.pipe(tapSpec());
+  var processOutput;
+  if (argv.reporter) {
+    if (!reporters[argv.reporter]) {
+      throw new Error(argv.reporter + ' is not a valid reporter');
+    }
+    processOutput = reporters[argv.reporter](groupOutput);
+  } else {
+    processOutput = dot(groupOutput);
   }
+
+
   var hasError = false;
   groupOutput.on('data', function onData(info) {
-    if (!info.success) {
+    if (info.type === 'end' && info.data.errors.length) {
       hasError = true;
     }
   });

@@ -105,8 +105,8 @@ test('failing test', function(t) {
     assert.equal(false, true);
   });
   runFn(tes).catch(function(val) {
-    t.is(val.actual, false);
-    t.is(val.expected, true);
+    t.is(val.error.actual, false);
+    t.is(val.error.expected, true);
     t.end();
   });
 });
@@ -119,8 +119,8 @@ test('failing test callback', function(t) {
     }, 10);
   });
   runFn(tes).catch(function(val) {
-    t.is(val.actual, 1);
-    t.is(val.expected, 2);
+    t.is(val.error.actual, 1);
+    t.is(val.error.expected, 2);
     t.end();
   });
 });
@@ -155,8 +155,8 @@ test('failing Promise', function(t) {
     });
   });
   runFn(tes).catch(function(val) {
-    t.is(val.actual, 1);
-    t.is(val.expected, 2);
+    t.is(val.error.actual, 1);
+    t.is(val.error.expected, 2);
     t.end();
   });
 });
@@ -167,8 +167,8 @@ test('fail before Promise created', function(t) {
     return Promise.resolve(10);
   });
   runFn(tes).catch(function(val) {
-    t.is(val.actual, 1);
-    t.is(val.expected, 2);
+    t.is(val.error.actual, 1);
+    t.is(val.error.expected, 2);
     t.end();
   });
 });
@@ -199,8 +199,8 @@ test('failing Observable', function(t) {
     });
   });
   runFn(tes).catch(function(val) {
-    t.is(val.actual, 1);
-    t.is(val.expected, 2);
+    t.is(val.error.actual, 1);
+    t.is(val.error.expected, 2);
     t.end();
   });
 });
@@ -213,8 +213,8 @@ test('failing Observable map', function(t) {
     });
   });
   runFn(tes).catch(function(val) {
-    t.is(val.actual, 3);
-    t.is(val.expected, 4);
+    t.is(val.error.actual, 3);
+    t.is(val.error.expected, 4);
     t.end();
   });
 });

@@ -7,9 +7,11 @@
   "dependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
+    "figures": "^1.4.0",
     "function-done": "^1.2.0",
     "glob": "~5.0.3",
     "minimist": "^1.2.0",
+    "object-assign": "^4.0.1",
     "promise-polyfill": "^2.1.0",
     "setasap": "^1.0.1",
     "sinon": "^1.17.2",

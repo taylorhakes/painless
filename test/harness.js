@@ -5,6 +5,8 @@ var through = require('through');
 var assert = require('chai').assert;
 var test = tap.test;
 var MY_MESSAGE = 'my assertion message';
+
+var TEST_END = 'test.end';
 function noop() {}
 function error() {
   assert(false, MY_MESSAGE);
@@ -26,7 +28,7 @@ function timeoutTestError(time) {
 test('harness single group all pass', function(t) {
   var har = Harness();
   var test = har.createGroup();
-  t.plan(2);
+  t.plan(4);
 
   test('test1', noop);
   test('test2', noop);
@@ -34,11 +36,17 @@ test('harness single group all pass', function(t) {
   var output = har.run();
   var index = 0;
   output.on('data', function(data) {
+    if (data.type !== TEST_END) {
+      return;
+    }
+    data = data.data;
     if (index === 0) {
-      t.same({ name: 'test1', success: true }, data);
+      t.is(data.name, 'test1');
+      t.is(data.success, true);
       index++;
     } else {
-      t.same({ name: 'test2', success: true }, data);
+      t.is(data.name, 'test2');
+      t.is(data.success, true);
     }
   });
   output.on('end', t.end);
@@ -49,7 +57,7 @@ test('harness single group all pass beforeEach and afterEach', function(t) {
   var test = har.createGroup();
   var beforeCalled = false;
   var afterCalled = false;
-  t.plan(4);
+  t.plan(6);
 
   test.beforeEach(function() {
     return new Promise(function(resolve) {
@@ -74,13 +82,20 @@ test('harness single group all pass beforeEach and afterEach', function(t) {
 
   var output = har.run();
   var index = 0;
-  output.on('data', function(data) {
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+    var data = info.data;
+
     if (index === 0) {
       t.ok(beforeCalled);
-      t.same({ name: 'test1', success: true }, data);
+      t.is(data.name, 'test1');
+      t.is(data.success, true);
     } else {
       t.ok(afterCalled);
-      t.same({ name: 'test2', success: true }, data);
+      t.is(data.name, 'test2');
+      t.is(data.success, true);
     }
     index++;
   });
@@ -97,13 +112,19 @@ test('success multiple errors', function(t) {
 
   var output = har.run();
   var index = 0;
-  output.on('data', function(data) {
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+
+    var data = info.data;
     if (index === 0) {
       t.equal(data.name, 'test1');
       t.notOk(data.success);
       t.equal(data.error.message, MY_MESSAGE);
     } else if (index === 1) {
-      t.same({ name: 'test2', success: true }, data);
+      t.equal(data.name, 'test2');
+      t.ok(data.success);
     } else {
       t.equal(data.name, 'test3');
       t.notOk(data.success);
@@ -124,13 +145,19 @@ test('multiple groups', function(t) {
 
   var output = har.run();
   var index = 0;
-  output.on('data', function(data) {
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+
+    var data = info.data;
     if (index === 0) {
       t.equal(data.name, 'test1');
       t.notOk(data.success);
       t.equal(data.error.message, MY_MESSAGE);
     } else {
-      t.same({ name: 'test2', success: true }, data);
+      t.equal(data.name, 'test2');
+      t.ok(data.success);
     }
     index++;
   });
@@ -147,19 +174,26 @@ test('group without tests', function(t) {
 test('harness single group all pass async', function(t) {
   var har = Harness();
   var test = har.createGroup();
-  t.plan(2);
+  t.plan(4);
 
   test('test1', noop);
   test('test2', noop);
 
   var output = har.run({ async: true });
   var index = 0;
-  output.on('data', function(data) {
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+
+    var data = info.data;
     if (index === 0) {
-      t.same({ name: 'test1', success: true }, data);
+      t.equal(data.name, 'test1');
+      t.ok(data.success);
       index++;
     } else {
-      t.same({ name: 'test2', success: true }, data);
+      t.equal(data.name, 'test2');
+      t.ok(data.success);
     }
   });
   output.on('end', t.end);
@@ -168,7 +202,7 @@ test('harness single group all pass async', function(t) {
 test('harness async larger than group size', function(t) {
   var har = Harness();
   var test = har.createGroup();
-  t.plan(12);
+  t.plan(24);
 
   test('test1', noop);
   test('test2', noop);
@@ -185,8 +219,13 @@ test('harness async larger than group size', function(t) {
 
   var output = har.run({ async: true });
   var index = 1;
-  output.on('data', function(data) {
-    t.same({ name: 'test' + index, success: true }, data);
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+    var data = info.data;
+    t.equal(data.name, 'test' + index);
+    t.ok(data.success);
     index++;
   });
   output.on('end', t.end);
@@ -195,7 +234,7 @@ test('harness async larger than group size', function(t) {
 test('harness async preserves order on success', function(t) {
   var har = Harness();
   var test = har.createGroup();
-  t.plan(12);
+  t.plan(24);
 
   test('test1', timeoutTest(30));
   test('test2', timeoutTest(50));
@@ -212,8 +251,13 @@ test('harness async preserves order on success', function(t) {
 
   var output = har.run({ async: true });
   var index = 1;
-  output.on('data', function(data) {
-    t.same({ name: 'test' + index, success: true }, data);
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+    var data = info.data;
+    t.equal(data.name, 'test' + index);
+    t.ok(data.success);
     index++;
   });
   output.on('end', t.end);
@@ -222,7 +266,7 @@ test('harness async preserves order on success', function(t) {
 test('harness async preserves order on errors', function(t) {
   var har = Harness();
   var test = har.createGroup();
-  t.plan(7);
+  t.plan(8);
 
   test('test1', timeoutTestError(30));
   test('test2', timeoutTestError(50));
@@ -231,9 +275,14 @@ test('harness async preserves order on errors', function(t) {
 
   var output = har.run({ async: true });
   var index = 1;
-  output.on('data', function(data) {
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+    var data = info.data;
     if (index == 3) {
-      t.same({ name: 'test' + index, success: true }, data);
+      t.equal(data.name, 'test' + index);
+      t.ok(data.success);
     } else {
       t.equal(data.name, 'test' + index);
       t.equal(data.success, false);
@@ -247,7 +296,7 @@ test('harness async preserves order on errors', function(t) {
 test('harness async bunch size change', function(t) {
   var har = Harness();
   var test = har.createGroup();
-  t.plan(8);
+  t.plan(16);
 
   test('test1', timeoutTest(30));
   test('test2', timeoutTest(50));
@@ -262,8 +311,13 @@ test('harness async bunch size change', function(t) {
 
   var output = har.run({ async: true });
   var index = 1;
-  output.on('data', function(data) {
-    t.same({ name: 'test' + index, success: true }, data);
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+    var data = info.data;
+    t.equal(data.name, 'test' + index);
+    t.ok(data.success);
     index++;
   });
   output.on('end', t.end);
