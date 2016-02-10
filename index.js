@@ -51,6 +51,8 @@ setAsap(function asap() {
   processOutput.pipe(process.stdout);
 });
 
+// Ignore coverage, this is just in case there is an error in painless. Not testable
+/* istanbul ignore next */
 process.on('unhandledRejection', function onUnhandled(reason) {
   console.error(reason.stack); // eslint-disable-line no-console
 });
