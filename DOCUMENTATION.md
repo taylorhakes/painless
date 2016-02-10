@@ -24,7 +24,7 @@ module.exports = helper({
 The helper function takes a single JS Object. The keys are the names of the event you want to listen to. 
 The values are functions that are passed the data associated with the event. The return value **MUST BE A STRING**. It is sent to the console.
 #### Event Types
-- `test.end` - When a test finishes
+##### `test.end` - When a test finishes
 
 Data associated
 ```js
@@ -47,7 +47,7 @@ error key has the following structure
   actual: <any>      // actual value. Key may not exist if not supported by assertion library.
 }
 ```
-- `group.start` - When a new group starts
+##### `group.start` - When a new group starts
 
 Data associated
 ```js
@@ -55,7 +55,7 @@ Data associated
   name: <string> // name of the group
 }
 ```
-- `group.end` - When a group finishes
+##### `group.end` - When a group finishes
 
 Data associated
 ```js
@@ -67,7 +67,7 @@ Data associated
   time: <number>             // time to run the group in milliseconds
 }
 ```
-- `end`
+##### `end`
 
 Data ssociated
 ```js
