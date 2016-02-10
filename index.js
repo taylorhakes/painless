@@ -8,11 +8,10 @@ var sinon = require('sinon');
 var createHarness = require('./lib/create-harness');
 var path = require('path');
 var argv = require('minimist')(process.argv.slice(2), {
-  boolean: ['async', 'tap'],
+  boolean: ['async'],
   alias: {
     a: 'async',
     b: 'bunch',
-    t: 'tap',
     r: 'reporter'
   }
 });

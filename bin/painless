@@ -2,10 +2,24 @@
 
 var path = require('path');
 var glob = require('glob');
+var resolveCwd = require('resolve-cwd');
+var argv = require('minimist')(process.argv.slice(2), {
+  alias: {
+    i: 'include'
+  }
+});
 
-process.argv.slice(2).forEach(function (arg) {
-  glob(arg, function (err, files) {
-    files.forEach(function (file) {
+if (argv.include) {
+  var include = resolveCwd(argv.include);
+  if (!include) {
+    throw new Error('Unable to find include ' + argv.include);
+  }
+  require(include);
+}
+
+process.argv.slice(2).forEach(function onEach(arg) {
+  glob(arg, function onGLob(err, files) {
+    files.forEach(function onFile(file) {
       require(path.resolve(process.cwd(), file));
     });
   });
