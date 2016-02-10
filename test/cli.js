@@ -5,6 +5,7 @@ var test = tap.test;
 
 test('command sync', function(t) {
   exec('node examples/sync', function (error, stdout, stderr) {
+    console.log('out', JSON.stringify(stdout), JSON.stringify(stderr), error);
     t.match(stdout, /  ..\n\n  [0-9]+ ms\n  2 tests\n  2 passed\n\n  Pass!/);
     t.end();
   });
