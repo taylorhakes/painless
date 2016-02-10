@@ -8,7 +8,7 @@ Simple test library that is easy to learn, use and debug. Tests can be run with 
 - Easy to learn
 - Works with ES6/Babel, Promises, Async/Await, Generators, Callbacks, Observables, Streams,  Processes,  out of the box
 - No Globals
-- Great diffs on errors
+- Great diffs on errors (Shows only differences. Very helpful on large objects)
 - Really fast
 - Easy to debug (Tests are just basic node processes. No subprocesses or threads)
 - Comes bundled with assertions and mocking (Chai and Sinon)
@@ -209,10 +209,9 @@ Painless Advantages
 - Has everything you need included (assertions, mocking, etc)
 - Supports Generators, Observables, Streams, Processes out of the box
 - Doesn't need a separate executable to run (just run `node test.js`)
-- Is easier to debug (single process)
+- Is easier to debug (single process, better error messages, easy to read diffs)
 - Has no globals
 - Much faster to run tests
-- Better error messages
 
 Mocha Advantages
 - Supports browser and node (Painless is only node. It will support browsers soon.)
