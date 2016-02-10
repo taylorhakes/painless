@@ -218,7 +218,7 @@ Mocha Advantages
 - More widely used (more battle tested)
 - Integrated coverage
 
-#### Ava
+#### AVA
 Painless Advantages
 - Easier to debug (single process and thread)
 - Has everything you need included (assertions, mocking, etc)
