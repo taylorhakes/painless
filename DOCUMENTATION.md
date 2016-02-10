@@ -25,6 +25,7 @@ The helper function takes a single JS Object. The keys are the names of the even
 The values are functions that are passed the data associated with the event. The return value **MUST BE A STRING**. It is sent to the console.
 #### Event Types
 - `test.end` - When a test finishes
+
 Data associated
 ```js
 {
@@ -47,6 +48,7 @@ error key has the following structure
 }
 ```
 - `group.start` - When a new group starts
+
 Data associated
 ```js
 {
@@ -54,6 +56,7 @@ Data associated
 }
 ```
 - `group.end` - When a group finishes
+
 Data associated
 ```js
 {
@@ -65,6 +68,7 @@ Data associated
 }
 ```
 - `end`
+
 Data ssociated
 ```js
 {
@@ -77,6 +81,7 @@ Data ssociated
 
 #### Troubleshooting
  - TypeError: invalid data
+ 
  This means you are not returning a string from one of your event functions. Check the return values.
 
 #### Advanced Reporters
