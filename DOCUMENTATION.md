@@ -9,7 +9,7 @@ The easiest way to get started is to use `painless-reporter-helper`. Advanced us
 npm install painless-reporter-helper --save
 ```
 Create a new reporter file
-```
+```js
 var helper = require('painless-reporter-helper');
 module.exports = helper({
     'test.end': function(test) {
