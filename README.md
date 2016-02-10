@@ -176,6 +176,7 @@ babel-node ./node_modules/.bin/painless test/**/*.js
 - `--async,-a` Run tests async. This will speed up tests that use IO or network. It is not recommended while debugging. It will make tests tough to reason about.
 - `--bunch,-b` Bunch size. If using the async flag, it determines the number of tests to run at the same time. By default this is 10.
 - `--reporter,-r` Specify a different reporter. By default painlesss use dot. Options are dot, spec and tap.
+Vie docs for [creating custom reporters](blob/master/DOCUMENTATION.md)
 
 ### Async
 Painless has the ability to run tests async. This will execute tests at the same time, but in a single process and thread. It uses node's standard event system to execute other tests while a test is doing IO or network tasks. This can significantly speed up your tests if you are doing IO or network tests. If your tests are CPU bound, you will not see any gains because everything is running in the same thread.
