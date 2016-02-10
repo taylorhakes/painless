@@ -15,9 +15,8 @@
     "promise-polyfill": "^2.1.0",
     "setasap": "^1.0.1",
     "sinon": "^1.17.2",
-    "tap-spec": "^4.1.1",
     "through": "~2.3.4",
-    "variable-diff": "^1.0.0"
+    "variable-diff": "^1.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.8",

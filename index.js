@@ -1,6 +1,5 @@
 var setAsap = require('setasap');
 var tap = require('./lib/reporters/tap');
-var json = require('./lib/reporters/json');
 var dot = require('./lib/reporters/dot');
 var spec = require('./lib/reporters/spec');
 var chai = require('chai');
@@ -19,7 +18,6 @@ var argv = require('minimist')(process.argv.slice(2), {
 
 var reporters = {
   dot: dot,
-  json: json,
   tap: tap,
   spec: spec
 };
@@ -51,6 +49,10 @@ setAsap(function asap() {
     process.exit(hasError ? 1 : 0);
   });
   processOutput.pipe(process.stdout);
+});
+
+process.on('unhandledRejection', function onUnhandled(reason) {
+  console.error(reason.stack); // eslint-disable-line no-console
 });
 
 module.exports.createGroup = harness.createGroup;
