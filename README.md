@@ -203,7 +203,7 @@ Go [here](#comparison) for comparisons to other test libraries. Painless is not 
 Painless tries to achieve a test library that just works. The goal is to be able to start writing tests as soon as possible. It is possible to switch out assertion and mocking libraries, but defaults are available.
 
 
-## Compared to other frameworks <a name="comparison"></a>
+## Compared to other libraries <a name="comparison"></a>
 #### Mocha
 Painless Advantages
 - Has everything you need included (assertions, mocking, etc)
