@@ -1,7 +1,7 @@
-0.7.0
+## 0.7.0
 Initial Release
 
-0.8.0
+## 0.8.0
 Features
 - Created generic reporter API
 - New spec and dot reporter
