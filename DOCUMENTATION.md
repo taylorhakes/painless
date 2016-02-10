@@ -80,7 +80,7 @@ Data ssociated
 ```
 
 #### Troubleshooting
- - TypeError: invalid data
+ - `TypeError: invalid data`
  
  This means you are **NOT** returning a string from one of your event functions. Check the return values.
 
