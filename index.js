@@ -6,6 +6,7 @@ var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 var sinon = require('sinon');
 var createHarness = require('./lib/create-harness');
+var path = require('path');
 var argv = require('minimist')(process.argv.slice(2), {
   boolean: ['async', 'tap'],
   alias: {
@@ -29,11 +30,14 @@ var harness = createHarness();
 setAsap(function asap() {
   var groupOutput = harness.run(argv);
   var processOutput;
+  var reporter;
   if (argv.reporter) {
-    if (!reporters[argv.reporter]) {
-      throw new Error(argv.reporter + ' is not a valid reporter');
+    if (reporters[argv.reporter]) {
+      reporter = reporters[argv.reporter];
+    } else {
+      reporter = require(argv.reporter.indexOf('.') === 0 ? path.resolve(process.cwd(), argv.reporter) : argv.reporter);
     }
-    processOutput = reporters[argv.reporter](groupOutput);
+    processOutput = reporter(groupOutput);
   } else {
     processOutput = dot(groupOutput);
   }

@@ -24,12 +24,27 @@ test('command sync -r=spec', function(t) {
   });
 });
 
-test('command sync -r=nyan', function(t) {
+test('command sync custom reporter', function(t) {
+  exec('node examples/sync -r=./examples/custom-reporter', function (error, stdout, stderr) {
+    t.match(stdout, /simple sync pass success!\nsimple sync pass 2 success!\n/);
+    t.end();
+  });
+});
+
+test('command sync custom reporter fail', function(t) {
+  exec('node examples/sync-error -r=./examples/custom-reporter', function (error, stdout, stderr) {
+    t.match(stdout, /simple sync pass failed!\nsimple sync pass 2 failed!\n/);
+    t.end();
+  });
+});
+
+test('command sync -r=nyan does not exist', function(t) {
   exec('node examples/sync -r=nyan', function (error, stdout, stderr) {
     t.ok(error);
     t.end();
   });
 });
+
 
 test('error sync', function(t) {
   exec('node examples/sync-error', function (error, stdout, stderr) {
