@@ -21,7 +21,7 @@ module.exports = helper({
     }
 });
 ```
-The helper function takes a single JS Object. The keys are the names of the event you want to listen to. 
+The helper function takes a single JS Object. The keys are the names of the events you want to listen to. 
 The values are functions that are passed the data associated with the event. The return value **MUST BE A STRING**. It is sent to the console.
 #### Event Types
 ##### `test.end` - When a test finishes
@@ -72,7 +72,7 @@ Data associated
 Data ssociated
 ```js
 {
-  success <boolean>,        // whether all tests were successful (no errors)
+  success <boolean>,         // whether all tests were successful (no errors)
   testCount: <number>,       // number of tests total,
   errors: <Array<test.end>>, // An array of all tests that failed
   time: <number>             // time to run all tests in milliseconds
@@ -82,7 +82,7 @@ Data ssociated
 #### Troubleshooting
  - TypeError: invalid data
  
- This means you are not returning a string from one of your event functions. Check the return values.
+ This means you are **NOT** returning a string from one of your event functions. Check the return values.
 
 #### Advanced Reporters
 Here is the signature of a reporter function. It takes in a Stream and returns a new Stream. 
