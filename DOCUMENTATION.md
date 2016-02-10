@@ -23,6 +23,9 @@ module.exports = helper({
 ```
 The helper function takes a single JS Object. The keys are the names of the events you want to listen to. 
 The values are functions that are passed the data associated with the event. The return value **MUST BE A STRING**. It is sent to the console.
+
+For other examples, look at the [built-in reporters](lib/reporters).
+
 #### Event Types
 ##### `test.end` - When a test finishes
 
