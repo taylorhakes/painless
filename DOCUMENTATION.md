@@ -67,7 +67,7 @@ Data associated
   time: <number>             // time to run the group in milliseconds
 }
 ```
-##### `end`
+##### `end` - When all tests have finished
 
 Data ssociated
 ```js
