@@ -12,9 +12,18 @@ var argv = require('minimist')(process.argv.slice(2), {
   alias: {
     a: 'async',
     b: 'bunch',
-    r: 'reporter'
+    r: 'reporter',
+    t: 'tap'
   }
 });
+
+/**
+  @deprecated
+ */
+/* istanbul ignore next */
+if (argv.tap) {
+  argv.reporter = 'tap';
+}
 
 var reporters = {
   dot: dot,

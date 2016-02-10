@@ -10,6 +10,14 @@ Features
 var painless = require('painless');
 var chai = painless.chai;
 ```
+- `--include,-i` to include additional files
+- Updated `variable-diff` for better looking diffs
 
 Changes
 - New dot reporter is default. Use `-r=spec` to keep using spec
+
+Deprecation
+- `--tap,-t` will be removed in the next version
+
+Breaking
+- None
