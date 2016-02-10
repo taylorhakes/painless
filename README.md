@@ -40,31 +40,15 @@ test('sync test', () => {
 test('promise test', () => {
     return assert.eventually.deepEqual(promiseFn(), { a: '1'});
 });
-
-// Promise alt syntax. Return a promise and tests will wait automatically
-test('promise test', () => {
-    return promiseFn().then((result) => {
-        assert.deepEqual(result, { a: '1'});
-    });
-});
-
-// Async/Await Test. Works with babel
-test('callback test', async () => {
-    var result = await apiCall();
-    assert.deepEqual(result, { success: true });
-});
 ```
+
+[See more examples here](examples)
 
 ES5
 ```js
 var painless = require('painless');
 var test = painless.createGroup();
 var assert = painless.assert;
-
-// Sync test
-test('sync test', function() {
-    assert.deepEqual({ a: '1' }, { a: '1'});
-});
 
 // Callback test
 test('callback test', function(done) {
@@ -75,6 +59,7 @@ test('callback test', function(done) {
 });
 ```
 
+![output](http://i.imgur.com/km7eWcL.png)
 
 ## How to use
 ##### Install

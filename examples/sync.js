@@ -14,3 +14,25 @@ test('simple sync pass', function sync1() {
 test('simple sync pass 2', function sync2() {
   assert.equal(5, 5);
 });
+
+test('simple sync pass', function sync1() {
+  assert.deepEqual([1,2,3], [1,2,3]);
+});
+
+test('simple sync pass 2', function sync2() {
+  assert.equal(5, 5);
+});
+test('simple sync pass', function sync1() {
+  assert.deepEqual([1,2,3], [1,2,3]);
+});
+
+test('simple sync pass 2', function sync2() {
+  assert.equal(5, 5);
+});
+test('simple sync pass', function sync1() {
+  assert.deepEqual([1,2,3], [1,2,3]);
+});
+
+test('Complex error', function sync2() {
+  assert.equal([1,2,3, { a: 'c' }], [1,2,3,{ a: 'b'}]);
+});
