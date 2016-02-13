@@ -8,12 +8,12 @@ Simple test library that is easy to learn, use and debug. Tests can be run with 
 - Easy to learn
 - Works with ES6/Babel, Promises, Async/Await, Generators, Callbacks, Observables, Streams,  Processes,  out of the box
 - No Globals
-- Great diffs on errors - Shows only differences. Very helpful on large objects
-- Really fast - Has the ability to run multiple tests at the same time
-- Easy to debug - Tests are just basic node processes. No subprocesses or threads
-- Comes bundled with assertions and mocking (Chai and Sinon)
+- Great diffs on errors (Shows only differences. Very helpful on large objects)
+- Really fast (Has the ability to run multiple tests at the same time)
+- Easy to debug (Tests are just basic node processes. No subprocesses or threads)
+- Batteries included. Comes bundled with assertions and mocking (Chai and Sinon)
 - 100% Test Coverage
-- Coverage support with Istanbul
+- Supports coverage support with [nyc](https://github.com/bcoe/nyc)
 
 ## Table of Contents
 - [Example Tests](#example-tests)
@@ -170,14 +170,25 @@ Painless has the ability to run tests async. This will execute tests at the same
 Enable async using the command options below. While debugging your tests, it is not recommended to use async because it will make execution flow harder to understand.
 
 ### Code Coverage
-Code coverage is really easy to use. Just install istanbul
+Code coverage is really easy to use. Just install [nyc](https://github.com/bcoe/nyc)
 ```
-npm install istanbul --save-dev
+npm install nyc --save-dev
 ```
-Then you can run coverage by
+#### Coverage in your console
 ```
-istanbul cover ./node_modules/bin/painless -- test/**/*.js
+nyc --cache --reporter=text ./node_modules/bin/painless test/**/*.js
 ```
+#### Coverage in HTML report
+```
+nyc --cache --reporter=html ./node_modules/bin/painless test/**/*.js
+```
+#### Send coverage to `coveralls`
+```
+npm install coveralls
+```
+then (make sure COVERALLS_REPO_TOKEN is in your environment variables)
+```
+nyc --reporter=text-lcov ./node_modules/bin/painless test/**/*.js  | ./node_modules/.bin/coveralls
 
 ## FAQS
 1. Why should I use painless over other test libraries?
