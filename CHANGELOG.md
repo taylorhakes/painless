@@ -27,3 +27,6 @@ Breaking
 
 ### 0.8.2
 - Added `none` reporter. Useful for code coverage reports
+
+### 0.8.3
+- Updated spec reporter to show group names
