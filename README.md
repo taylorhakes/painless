@@ -189,7 +189,7 @@ npm install coveralls
 then (make sure COVERALLS_REPO_TOKEN is in your environment variables)
 ```
 nyc --reporter=text-lcov ./node_modules/bin/painless test/**/*.js  | ./node_modules/.bin/coveralls
-
+```
 ## FAQS
 1. Why should I use painless over other test libraries?
 
