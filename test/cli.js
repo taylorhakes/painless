@@ -20,7 +20,7 @@ test('command sync -r=tap', function(t) {
 
 test('command sync -r=spec', function(t) {
   exec('node examples/sync -r=spec', function (error, stdout, stderr) {
-    t.match(stdout, /  ✔ simple sync pass \([0-9]+ ms\)\n  ✔ simple sync pass 2 \([0-9]+ ms\)\n\n\n  [0-9]+ ms\n  2 tests\n  2 passed\n\n  Pass!\n/);
+    t.match(stdout, /  ✔ simple sync pass [0-9]+ms\n  ✔ simple sync pass 2 [0-9]+ms\n\n\n  [0-9]+ms total\n  2 tests\n  2 passed\n\n  Pass!\n/);
     t.end();
   });
 });
@@ -94,7 +94,7 @@ test('invalid assertion tap', function(t) {
 test('invalid assertion spec', function(t) {
   exec('node test/fixtures/string-error-test -r=spec', function (error, stdout, stderr) {
     t.ok(error);
-    t.match(stdout, /  ✖ string assertion \([0-9]+ ms\)\n     hello\n      \n\n\n  [0-9]+ ms\n  1 tests\n  0 passed\n  1 failed\n/);
+    t.match(stdout, /  ✖ string assertion [0-9]+ms\n     hello\n      \n\n\n  [0-9]+ms total\n  1 tests\n  0 passed\n  1 failed\n/);
     t.end();
   });
 });
