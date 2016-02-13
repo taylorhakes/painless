@@ -19,7 +19,7 @@ test('command sync -r=tap', function(t) {
 
 test('command sync -r=spec', function(t) {
   exec('node examples/sync -r=spec', function (error, stdout, stderr) {
-    t.match(stdout, /  ✔ simple sync pass [0-9]+ms\n  ✔ simple sync pass 2 [0-9]+ms\n\n\n  [0-9]+ms total\n  2 tests\n  2 passed\n\n  Pass!\n/);
+    t.match(stdout, /Sync examples\n  ✔ simple sync pass [0-9]+ms\n  ✔ simple sync pass 2 [0-9]+ms\n\n\n  [0-9]+ms total\n  2 tests\n  2 passed\n\n  Pass!\n/);
     t.end();
   });
 });
