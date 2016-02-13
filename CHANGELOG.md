@@ -21,3 +21,6 @@ Deprecation
 
 Breaking
 - None
+
+### 0.8.1
+- Updated coloring for spec reporter times
