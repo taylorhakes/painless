@@ -8,9 +8,9 @@ Simple test library that is easy to learn, use and debug. Tests can be run with 
 - Easy to learn
 - Works with ES6/Babel, Promises, Async/Await, Generators, Callbacks, Observables, Streams,  Processes,  out of the box
 - No Globals
-- Great diffs on errors (Shows only differences. Very helpful on large objects)
-- Really fast
-- Easy to debug (Tests are just basic node processes. No subprocesses or threads)
+- Great diffs on errors - Shows only differences. Very helpful on large objects
+- Really fast - Has the ability to run multiple tests at the same time
+- Easy to debug - Tests are just basic node processes. No subprocesses or threads
 - Comes bundled with assertions and mocking (Chai and Sinon)
 - 100% Test Coverage
 - Coverage support with Istanbul
@@ -197,7 +197,7 @@ Painless Advantages
 - Doesn't need a separate executable to run (just run `node test.js`)
 - Is easier to debug (single process, better error messages, easy to read diffs)
 - Has no globals
-- Much faster to run tests
+- Run tests at the same time (speed improvements)
 
 Mocha Advantages
 - Supports browser and node (Painless is only node. It will support browsers soon.)
@@ -222,7 +222,7 @@ Painless Advantages
 - Doesn't need a separate executable to run (just run `node test.js`)
 - Easier to debug (single process and thread)
 - Has no globals
-- Much faster
+- Run tests at the same time (speed improvements)
 
 Jasmine Advantages
 - Supports browser and node (Painless is only node. It will support browsers soon.)
@@ -237,3 +237,4 @@ Painless Advantages
 - Better output format out of the box (Easier to read than TAP. painless supports TAP too)
 - Supports test groups (`beforeEach` and `afterEach`)
 - Better error messages
+- Run tests at the same time (speed improvements)
