@@ -24,3 +24,6 @@ Breaking
 
 ### 0.8.1
 - Updated coloring for spec reporter times
+
+### 0.8.2
+- Added `none` reporter. Useful for code coverage reports

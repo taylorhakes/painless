@@ -2,6 +2,7 @@ var setAsap = require('setasap');
 var tap = require('./lib/reporters/tap');
 var dot = require('./lib/reporters/dot');
 var spec = require('./lib/reporters/spec');
+var none = require('./lib/reporters/none');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 var sinon = require('sinon');
@@ -28,7 +29,8 @@ if (argv.tap) {
 var reporters = {
   dot: dot,
   tap: tap,
-  spec: spec
+  spec: spec,
+  none: none
 };
 
 chai.use(chaiAsPromised);
