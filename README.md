@@ -151,7 +151,7 @@ var xhr = sinon.useFakeXMLHttpRequest();
 ```
 ### beforeEach and afterEach
 Painless supports beforeEach and afterEach out of the box. You can use all the features available in tests (Promises, Async/Await, etc)
-```
+```js
 var painless = require('painless');
 var assert = painless.assert;
 var test = painless.createGroup();
