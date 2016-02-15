@@ -55,14 +55,23 @@ test('harness single group all pass', function(t) {
 test('harness single group all pass beforeEach and afterEach', function(t) {
   var har = Harness();
   var test = har.createGroup();
-  var beforeCalled = false;
-  var afterCalled = false;
-  t.plan(6);
+  var beforeCalled = 0;
+  var afterCalled = 0;
+  t.plan(8);
 
   test.beforeEach(function() {
     return new Promise(function(resolve) {
       setTimeout(function() {
-        beforeCalled = true;
+        beforeCalled++;
+        resolve();
+      }, 10);
+    });
+  });
+
+  test.beforeEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        beforeCalled++;
         resolve();
       }, 10);
     });
@@ -71,7 +80,16 @@ test('harness single group all pass beforeEach and afterEach', function(t) {
   test.afterEach(function() {
     return new Promise(function(resolve) {
       setTimeout(function() {
-        afterCalled = true;
+        afterCalled++;
+        resolve();
+      }, 10);
+    });
+  });
+
+  test.afterEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        afterCalled++;
         resolve();
       }, 10);
     });
@@ -89,13 +107,110 @@ test('harness single group all pass beforeEach and afterEach', function(t) {
     var data = info.data;
 
     if (index === 0) {
-      t.ok(beforeCalled);
+      t.is(beforeCalled, 2);
+      t.is(afterCalled, 2);
       t.is(data.name, 'test1');
       t.is(data.success, true);
     } else {
-      t.ok(afterCalled);
+      t.is(beforeCalled, 4);
+      t.is(afterCalled, 4);
       t.is(data.name, 'test2');
       t.is(data.success, true);
+    }
+    index++;
+  });
+  output.on('end', t.end);
+});
+
+test('harness single group multiple errors beforeEach and afterEach', function(t) {
+  var har = Harness();
+  var test = har.createGroup();
+  t.plan(6);
+
+  test.beforeEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        assert(false);
+        resolve();
+      }, 10);
+    });
+  });
+
+  test.afterEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        assert(false);
+        resolve();
+      }, 10);
+    });
+  });
+
+  test('test1', noop);
+  test('test2', noop);
+
+  var output = har.run();
+  var index = 0;
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+    var data = info.data;
+
+    if (index === 0) {
+      t.is(data.name, 'beforeEach: test1');
+      t.is(data.beforeTest, true);
+      t.is(data.success, false);
+    } else {
+      t.is(data.name, 'beforeEach: test2');
+      t.is(data.beforeTest, true);
+      t.is(data.success, false);
+    }
+    index++;
+  });
+  output.on('end', t.end);
+});
+
+test('harness single group multiple errors afterEach', function(t) {
+  var har = Harness();
+  var test = har.createGroup();
+  t.plan(6);
+
+  test.beforeEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        resolve();
+      }, 10);
+    });
+  });
+
+  test.afterEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        assert(false);
+        resolve();
+      }, 10);
+    });
+  });
+
+  test('test1', noop);
+  test('test2', noop);
+
+  var output = har.run();
+  var index = 0;
+  output.on('data', function(info) {
+    if (info.type !== TEST_END) {
+      return;
+    }
+    var data = info.data;
+
+    if (index === 0) {
+      t.is(data.name, 'afterEach: test1');
+      t.is(data.afterTest, true);
+      t.is(data.success, false);
+    } else {
+      t.is(data.name, 'afterEach: test2');
+      t.is(data.afterTest, true);
+      t.is(data.success, false);
     }
     index++;
   });
