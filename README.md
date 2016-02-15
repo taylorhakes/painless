@@ -228,7 +228,7 @@ Painless Advantages
 - Doesn't require babel (write your tests in ES5, typescript, coffeescript, etc)
 - Built-in support for Node streams and processes
 
-Ava Advantages
+AVA Advantages
 - Test files are isolated (provides some isolation)
 
 #### Jasmine
