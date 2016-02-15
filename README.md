@@ -220,6 +220,7 @@ Mocha Advantages
 #### AVA
 Painless Advantages
 - Supports Browser and Node
+- Better error messages (beautiful diff when tests fail)
 - Easier to debug (single process and thread)
 - Has everything you need included (assertions, mocking, etc)
 - Doesn't need a separate executable to run (just run `node test.js`)
