@@ -235,7 +235,7 @@ AVA Advantages
 Painless Advantages
 - Supports Promises, Async/Await, Generators, Observables, Streams, Processes out of the box
 - Doesn't need a separate executable to run (just run `node test.js`)
-- Easier to debug (single process and thread)
+- Easier to debug (single process, better error messages, easy to read diffs)
 - Has no globals
 - Run tests at the same time (speed improvements)
 
