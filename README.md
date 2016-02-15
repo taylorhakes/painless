@@ -190,6 +190,10 @@ then (make sure COVERALLS_REPO_TOKEN is in your environment variables)
 ```
 nyc --reporter=text-lcov ./node_modules/bin/painless test/**/*.js  | ./node_modules/.bin/coveralls
 ```
+
+### Browser Support
+Tests can run in browser with [karma-painless](https://github.com/taylorhakes/karma-painless)
+
 ## FAQS
 1. Why should I use painless over other test libraries?
 
