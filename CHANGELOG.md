@@ -30,3 +30,10 @@ Breaking
 
 ### 0.8.3
 - Updated spec reporter to show group names
+
+## 0.9.0
+Features
+- Browser support and karma support with `karma-painless`
+
+Bugs
+- Fixed bugs with beforeEach and afterEach
