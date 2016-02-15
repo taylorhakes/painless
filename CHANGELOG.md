@@ -37,3 +37,6 @@ Features
 
 Bugs
 - Fixed bugs with beforeEach and afterEach
+
+### 0.9.1
+- Fixed bug with 0.10 Node not having Promise
