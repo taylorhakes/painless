@@ -211,12 +211,11 @@ Painless Advantages
 - Run tests at the same time (speed improvements)
 
 Mocha Advantages
-- Supports browser and node (Painless is only node. It will support browsers soon.)
 - More widely used (more battle tested)
-- Integrated coverage
 
 #### AVA
 Painless Advantages
+- Supports Browser and Node
 - Easier to debug (single process and thread)
 - Has everything you need included (assertions, mocking, etc)
 - Doesn't need a separate executable to run (just run `node test.js`)
@@ -225,7 +224,7 @@ Painless Advantages
 - Built-in support for Node streams and processes
 
 Ava Advantages
-- Test groups are isolated (Less likely for tests to affect each other)
+- Test files are isolated (provides some isolation)
 
 #### Jasmine
 Painless Advantages
@@ -236,7 +235,6 @@ Painless Advantages
 - Run tests at the same time (speed improvements)
 
 Jasmine Advantages
-- Supports browser and node (Painless is only node. It will support browsers soon.)
 - More widely used (more battle tested)
 
 #### Tape
