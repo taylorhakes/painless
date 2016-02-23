@@ -42,7 +42,7 @@ test('options in other order', function(t) {
 
 test('timeout', function(t) {
   var tes = Test('hello', function(done) {}, {timeout: 10});
-  runFn(tes).catch(function(val) {
+  runFn(tes).then(function(val) {
     t.is(val.error.message, 'test timed out after 10ms');
     t.end();
   });
@@ -104,7 +104,7 @@ test('failing test', function(t) {
   var tes = Test('hello', function() {
     assert.equal(false, true);
   });
-  runFn(tes).catch(function(val) {
+  runFn(tes).then(function(val) {
     t.is(val.error.actual, false);
     t.is(val.error.expected, true);
     t.end();
@@ -118,7 +118,7 @@ test('failing test callback', function(t) {
       done();
     }, 10);
   });
-  runFn(tes).catch(function(val) {
+  runFn(tes).then(function(val) {
     t.is(val.error.actual, 1);
     t.is(val.error.expected, 2);
     t.end();
@@ -131,7 +131,7 @@ test('failing test callback with error', function(t) {
       done(new Error());
     }, 10);
   });
-  runFn(tes).catch(function() {
+  runFn(tes).then(function() {
     t.end();
   });
 });
@@ -154,7 +154,7 @@ test('failing Promise', function(t) {
       assert.equal(1, 2);
     });
   });
-  runFn(tes).catch(function(val) {
+  runFn(tes).then(function(val) {
     t.is(val.error.actual, 1);
     t.is(val.error.expected, 2);
     t.end();
@@ -166,7 +166,7 @@ test('fail before Promise created', function(t) {
     assert.equal(1, 2);
     return Promise.resolve(10);
   });
-  runFn(tes).catch(function(val) {
+  runFn(tes).then(function(val) {
     t.is(val.error.actual, 1);
     t.is(val.error.expected, 2);
     t.end();
@@ -198,7 +198,7 @@ test('failing Observable', function(t) {
       observer.complete();
     });
   });
-  runFn(tes).catch(function(val) {
+  runFn(tes).then(function(val) {
     t.is(val.error.actual, 1);
     t.is(val.error.expected, 2);
     t.end();
@@ -212,7 +212,7 @@ test('failing Observable map', function(t) {
       return 1;
     });
   });
-  runFn(tes).catch(function(val) {
+  runFn(tes).then(function(val) {
     t.is(val.error.actual, 3);
     t.is(val.error.expected, 4);
     t.end();
@@ -245,7 +245,7 @@ test('failing stream', function(t) {
 
     return stream;
   });
-  runFn(tes).catch(function(val) {
+  runFn(tes).then(function(val) {
     t.is(val.error.message, 'invalid stream');
     t.end();
   });
@@ -271,7 +271,7 @@ test('failing process', function(t) {
   var tes = Test('test failing process', function() {
     return cp.exec('foo-bar-baz hello world');
   });
-  runFn(tes).catch(function() {
+  runFn(tes).then(function() {
     t.end();
   });
 });

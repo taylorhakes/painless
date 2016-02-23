@@ -88,7 +88,7 @@ if (typeof window === 'object' && window && window.__PAINLESS__) {
 /* istanbul ignore next */
 if (canExit) {
   process.on('unhandledRejection', function onUnhandled(reason) {
-    console.error(reason.stack); // eslint-disable-line no-console
+    console.error('Unhandled Rejection:', reason.stack); // eslint-disable-line no-console
   });
 }
 

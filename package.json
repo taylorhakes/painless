@@ -10,15 +10,15 @@
     "chalk": "1.1.1",
     "figures": "1.4.0",
     "function-done": "1.2.0",
-    "glob": "5.0.3",
+    "glob": "5.0.15",
     "minimist": "1.2.0",
     "object-assign": "4.0.1",
     "painless-reporter-helper": "1.1.0",
     "promise-polyfill": "2.1.0",
     "resolve-cwd": "1.0.0",
-    "setasap": "1.0.1",
+    "setasap": "1.1.0",
     "sinon": "1.17.2",
-    "through": "2.3.4",
+    "through": "2.3.8",
     "variable-diff": "1.1.0"
   },
   "devDependencies": {
@@ -28,7 +28,7 @@
     "babel-eslint": "4.1.8",
     "babel-preset-es2015": "6.5.0",
     "babel-preset-stage-3": "6.5.0",
-    "concat-stream": "1.4.1",
+    "concat-stream": "1.4.6",
     "coveralls": "2.11.6",
     "eslint": "1.10.3",
     "eslint-config-airbnb-es5": "1.0.8",
@@ -40,7 +40,8 @@
     "zen-observable": "0.1.8"
   },
   "scripts": {
-    "test": "eslint lib/** *.js && nyc --require=babel-core/register --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js"
+    "test": "npm run lint && nyc --require=babel-core/register --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js",
+    "lint": "eslint lib/** *.js"
   },
   "repository": {
     "type": "git",
