@@ -1,5 +1,51 @@
 # Documentation
 
+## createGroup
+```js
+const test = createGroup(<string> /* group Name */);
+```
+
+returns test <function>
+
+## test
+```js
+test(<string> /* test name */, <object> /* options */, <function> /* test function */);
+```
+
+Order of parameters does not matter. Only mandatory param is the test function.
+#### Options Object
+```js
+{
+  timeout: <number> // Number of milliseconds before test fails
+}
+```
+
+### test.beforeEach
+```js
+test.beforeEach(<string> /* before each name */, <object> /* options */, <function> /* test function */);
+```
+
+Order of parameters does not matter. Only mandatory param is the test function.
+#### Options Object
+```js
+{
+  timeout: <number> // Number of milliseconds before test fails
+}
+```
+
+### test.afterEach
+```js
+test.afterEach(<string> /* after each name */, <object> /* options */, <function> /* test function */);
+```
+
+Order of parameters does not matter. Only mandatory param is the test function.
+#### Options Object
+```js
+{
+  timeout: <number> // Number of milliseconds before test fails
+}
+```
+
 ## Reporter API
 Painless supports creating your own custom reporters
 
