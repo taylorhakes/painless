@@ -437,3 +437,33 @@ test('harness async bunch size change', function(t) {
   });
   output.on('end', t.end);
 });
+
+test('harness async test before/after each order', function(t) {
+  var har = Harness();
+  var test = har.createGroup();
+  var before = false;
+  var after = false;
+  t.plan(2);
+
+  test.beforeEach(function(done) {
+    setTimeout(function() {
+      before = true;
+      done();
+    }, 50);
+  });
+  test.afterEach(function() {
+    after = true;
+  });
+
+
+  test('test1', function(done) {
+   setTimeout(function() {
+     t.equal(after, false);
+     t.equal(before, true);
+     done();
+     t.end();
+   }, 4);
+  });
+
+  har.run({ async: true });
+});
