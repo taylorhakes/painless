@@ -1,6 +1,6 @@
 {
   "name": "painless",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Super simple test framework for node and the browser",
   "main": "index.js",
   "bin": "./bin/painless",
