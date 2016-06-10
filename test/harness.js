@@ -122,6 +122,71 @@ test('harness single group all pass beforeEach and afterEach', function(t) {
   output.on('end', t.end);
 });
 
+
+test('harness single group failing test beforeEach and afterEach', function(t) {
+  var har = Harness();
+  var test = har.createGroup();
+  var beforeCalled = 0;
+  var afterCalled = 0;
+  t.plan(4);
+
+  test.beforeEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        beforeCalled++;
+        resolve();
+      }, 10);
+    });
+  });
+
+  test.beforeEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        beforeCalled++;
+        resolve();
+      }, 10);
+    });
+  });
+
+  test.afterEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        afterCalled++;
+        resolve();
+      }, 10);
+    });
+  });
+
+  test.afterEach(function() {
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        afterCalled++;
+        resolve();
+      }, 10);
+    });
+  });
+
+  test('test1', function() {
+    throw new Error();
+  });
+
+  var output = har.run();
+  output.on('data', function(info) {
+
+    if (info.type !== TEST_END) {
+      return;
+    }
+
+    var data = info.data;
+
+    t.is(beforeCalled, 2);
+    t.is(afterCalled, 2);
+    t.is(data.name, 'test1');
+    t.is(data.success, false);
+  });
+  output.on('end', t.end);
+});
+
 test('harness single group multiple errors beforeEach and afterEach', function(t) {
   var har = Harness();
   var test = har.createGroup();
