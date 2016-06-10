@@ -40,3 +40,6 @@ Bugs
 
 ### 0.9.1
 - Fixed bug with 0.10 Node not having Promise
+
+### 0.9.5
+- Fixed bug where afterEach was not executed on test failure
