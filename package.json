@@ -29,7 +29,7 @@
     "babel-preset-es2015": "6.5.0",
     "babel-preset-stage-3": "6.5.0",
     "concat-stream": "1.4.6",
-    "coveralls": "2.11.6",
+    "coveralls": "^3.0.2",
     "eslint": "1.10.3",
     "eslint-config-airbnb-es5": "1.0.8",
     "eslint-plugin-react": "3.16.1",
