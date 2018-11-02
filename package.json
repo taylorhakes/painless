@@ -35,12 +35,12 @@
     "eslint-plugin-react": "3.16.1",
     "falafel": "1.0.1",
     "js-yaml": "3.3.1",
-    "nyc": "5.6.0",
-    "tap": "5.4.2",
+    "nyc": "13.1.0",
+    "tap": "12.0.1",
     "zen-observable": "0.1.8"
   },
   "scripts": {
-    "test": "npm run lint && nyc --require=babel-core/register --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js",
+    "test": "npm run lint && nyc --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js",
     "lint": "eslint lib/** *.js"
   },
   "repository": {
