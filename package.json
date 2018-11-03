@@ -40,7 +40,7 @@
     "zen-observable": "0.1.8"
   },
   "scripts": {
-    "test": "npm run lint && nyc --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js",
+    "test": "npm run lint && nyc --require=babel-core/register --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js",
     "lint": "eslint lib/** *.js"
   },
   "repository": {
