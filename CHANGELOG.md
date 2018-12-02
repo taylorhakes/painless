@@ -43,3 +43,6 @@ Bugs
 
 ### 0.9.5
 - Fixed bug where afterEach was not executed on test failure
+
+### 0.9.7
+- Fixed vulnerable dev dependencies (Does not affect dependents)
