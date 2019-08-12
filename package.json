@@ -35,7 +35,7 @@
     "eslint-config-airbnb-es5": "^1.2.0",
     "eslint-plugin-react": "^7.11.1",
     "falafel": "1.0.1",
-    "js-yaml": "3.3.1",
+    "js-yaml": "3.13.1",
     "nyc": "13.1.0",
     "tap": "12.0.1",
     "zen-observable": "0.1.8"
