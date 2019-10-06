@@ -19,16 +19,18 @@
     "setasap": "2.0.0",
     "sinon": "1.17.2",
     "through": "2.3.8",
-    "variable-diff": "1.1.0"
+    "variable-diff": "2.0.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "acorn": "^6.0.4",
-    "babel": "^6",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
-    "babel-preset-es2015": "6.5.0",
-    "babel-preset-stage-3": "6.5.0",
     "concat-stream": "^1.6.2",
     "coveralls": "^3.0.2",
     "eslint": "5.8.0",
@@ -37,11 +39,11 @@
     "falafel": "1.0.1",
     "js-yaml": "3.13.1",
     "nyc": "13.1.0",
-    "tap": "12.0.1",
+    "tap": "14.6.7",
     "zen-observable": "0.1.8"
   },
   "scripts": {
-    "test": "npm run lint && nyc --require=babel-core/register --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js",
+    "test": "npm run lint && nyc --cache --reporter=lcov --reporter=text tap --no-cov --timeout=150 test/*.js",
     "lint": "eslint lib/** *.js"
   },
   "repository": {

@@ -1,9 +1,8 @@
 sudo: false
 language: node_js
 node_js:
-  - '0.10'
-  - '0.12'
-  - '4'
-  - '5'
+  - '8'
+  - '10'
+  - '12'
 after_success:
   - '[ -z "$COVERALLS_REPO_TOKEN" ] && echo "running coverage" && tap --coverage-report=text-lcov | ./node_modules/.bin/coveralls'
