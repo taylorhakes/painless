@@ -222,14 +222,14 @@ Tests can run in browser with [karma-painless](https://github.com/taylorhakes/ka
 ## FAQS
 1. Why should I use painless over other test libraries?
 
-Go [here](#comparison) for comparisons to other test libraries. Painless is not groundbreaking in any way. If you like it, use it. It is more important to test your javascript code. The test framework is a minor detail.
+Go [here](#compared-to-other-libraries) for comparisons to other test libraries. Painless is not groundbreaking in any way. If you like it, use it. It is more important to test your javascript code. The test framework is a minor detail.
 
 2. Why bundle other libraries (Chai, Sinon, etc)? Why not let the user decide?
 
 Painless tries to achieve a test library that just works. The goal is to be able to start writing tests as soon as possible. It is possible to switch out assertion and mocking libraries, but defaults are available.
 
 
-## Compared to other libraries <a name="comparison"></a>
+## Compared to other libraries
 #### Mocha
 Painless Advantages
 - Has everything you need included (assertions, mocking, etc)
