@@ -39,7 +39,7 @@
     "falafel": "1.0.1",
     "js-yaml": "3.13.1",
     "nyc": "13.1.0",
-    "tap": "14.6.7",
+    "tap": "14.11.0",
     "zen-observable": "0.1.8"
   },
   "scripts": {
